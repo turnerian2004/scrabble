@@ -1,10 +1,15 @@
-import { ILetter, initializeLetterObjects } from '../Letters/Letters'
+import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 
 export interface IState {
-    letters: ILetter[]
+    letters: ILetters
 }
 
-const initialLetters: ILetter[] = initializeLetterObjects()
+const initialLetters: ILetters = {
+    available: initializeLetterObjects(),
+    computer: [],
+    person: [],
+    board: [],
+}
 
 export const initialState: IState = {
     letters: initialLetters,
