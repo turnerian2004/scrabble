@@ -4,3 +4,7 @@ export enum LETTEROWNER {
     Computer,
     Board,
 }
+
+export enum GAMETERMS {
+    MaxNumberLettersPerPlayer = 7,
+}
