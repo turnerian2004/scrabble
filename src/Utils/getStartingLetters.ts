@@ -34,6 +34,7 @@ function getPlayerLetters(
         const playerLetter: ILetter = letters[letterIndex]
         playerLetters.push(playerLetter)
 
+        // remove letters from letter bag that have been assigned
         letters = letters.filter(
             (letter) =>
                 letter.uniqueIdentifier !==

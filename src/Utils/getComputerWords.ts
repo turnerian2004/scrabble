@@ -1,7 +1,10 @@
 import { ILetter } from '../Letters/Letters'
-import { allEnglishWords } from '../assests/words'
+import { WordEntry, allEnglishWords } from '../assests/words'
 
-export function getComputerStartingWord(letters: ILetter[]) {
+export function getComputerStartingWord(
+    letters: ILetter[]
+    // computerSkillLevel
+) {
     const computerLetters: ILetter[] = [...letters]
 
     const computerCharacters = computerLetters.map(
@@ -14,10 +17,15 @@ export function getComputerStartingWord(letters: ILetter[]) {
     const computerAllWordCombinations = cleanWordList(
         computerAllLetterCombinations
     )
+
+    computerAllWordCombinations.sort(
+        (a, b) => a.pointValue - b.pointValue
+    )
 }
 
-function cleanWordList(allLetterCombinations: string[]): string[] {
-    const allValidLetterCombinations: string[] = []
+function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
+    // remove all letter combinations that are not valid words
+    const allValidWords: WordEntry[] = []
 
     allLetterCombinations.forEach((letterCombination) => {
         const firstLetter = letterCombination[0]
@@ -27,20 +35,30 @@ function cleanWordList(allLetterCombinations: string[]): string[] {
             allEnglishWords[firstLetter][letterCombination.length] !==
                 undefined
         ) {
+            // all words with the 1st letter & length of the letter combination
             const words =
                 allEnglishWords[firstLetter][letterCombination.length]
 
-            if (words.some((word) => word.word === letterCombination))
-                allValidLetterCombinations.push(letterCombination)
+            if (
+                words.some((word) => word.word === letterCombination)
+            ) {
+                // check the letter combination is a valid word
+                const matchingWord = words.find(
+                    (word) => word.word === letterCombination
+                )
+
+                allValidWords.push(matchingWord!)
+            }
         }
     })
 
-    return allValidLetterCombinations
+    return allValidWords
 }
 
 function getAllPossibleLetterCombinations(
     letters: string[]
 ): string[] {
+    // generate all letter combinations from player's letter set
     const result: string[] = []
 
     const permute = (current: string, remaining: string[]) => {
@@ -58,5 +76,7 @@ function getAllPossibleLetterCombinations(
 
     permute('', letters)
 
-    return result
+    const removeDuplicates = [...new Set(result)]
+
+    return removeDuplicates
 }
