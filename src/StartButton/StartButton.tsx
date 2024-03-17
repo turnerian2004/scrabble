@@ -3,7 +3,6 @@ import Button from '@mui/material/Button'
 import { UserActions } from '../State/UserActions'
 
 export interface IUserAction {
-    // TODO: move to better location
     type: UserActions
 }
 
@@ -14,6 +13,7 @@ interface IStartButton {
 export const StartButton: React.FC<IStartButton> = ({ dispatch }) => {
     return (
         <Button
+            style={{ textTransform: 'none' }}
             variant="outlined"
             onClick={() => {
                 dispatch({ type: UserActions.STARTGAME })

@@ -4,6 +4,7 @@ export interface IState {
     letters: ILetters
     isGameOver: boolean
     hasGameStarted: boolean
+    computerSkillLevel: string
 }
 
 const initialLetters: ILetters = {
@@ -17,4 +18,5 @@ export const initialState: IState = {
     letters: initialLetters,
     isGameOver: false,
     hasGameStarted: false,
+    computerSkillLevel: '',
 }

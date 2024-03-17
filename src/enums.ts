@@ -8,9 +8,3 @@ export enum LETTEROWNER {
 export enum GAMETERMS {
     MaxNumberLettersPerPlayer = 7,
 }
-
-export enum COMPUTERSKILLLEVEL {
-    Easy,
-    Medium,
-    Sensei,
-}

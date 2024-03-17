@@ -2,18 +2,21 @@ import { useReducer } from 'react'
 
 import './App.css'
 import { IState, initialState } from './State/initialState'
-import { StartButton } from './StartButton/StartButton'
+import { IUserAction, StartButton } from './StartButton/StartButton'
 import { UserActions } from './State/UserActions'
 import { distributeLettersAtGameStart } from './Utils/getStartingLetters'
 import { ILetter, ILetters } from './Letters/Letters'
 import { getComputerStartingWord } from './Utils/getComputerWords'
+import {
+    BasicMenu,
+    IUserActionBasicMenu,
+} from './BasicMenu/BasicMenu'
+import { computerSkillLevel, wordHintType } from './BasicMenu/options'
 
-export interface IUserAction {
-    // TODO: move to better location
-    type: UserActions
-}
-
-function reducer(state: IState, action: IUserAction) {
+function reducer(
+    state: IState,
+    action: IUserAction | IUserActionBasicMenu
+) {
     switch (action.type) {
         case UserActions.STARTGAME: {
             const [availableLetters, personLetters, computerLetters] =
@@ -35,6 +38,17 @@ function reducer(state: IState, action: IUserAction) {
                 hasGameStarted: true,
             }
         }
+
+        case UserActions.SELECTCOMPUTERSKILLLEVEL: {
+            const computerSkillLevel = (
+                action as IUserActionBasicMenu
+            ).payload
+
+            return {
+                ...state,
+                computerSkillLevel: computerSkillLevel,
+            }
+        }
     }
 }
 
@@ -45,6 +59,17 @@ function App() {
     return (
         <>
             <StartButton dispatch={dispatch} />
+            <BasicMenu
+                options={computerSkillLevel}
+                title={'Computer Skill Level'}
+                dispatch={dispatch}
+            ></BasicMenu>
+            <BasicMenu
+                options={wordHintType}
+                title={'Word Hint Type'}
+                dispatch={dispatch}
+            ></BasicMenu>
+
             <div>Coming Soon!</div>
         </>
     )
