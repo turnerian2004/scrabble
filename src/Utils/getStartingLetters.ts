@@ -1,4 +1,4 @@
-import { GAMETERMS } from '../enums'
+import { GAMETERMS, LETTEROWNER } from '../enums'
 import { ILetter } from '../Letters/Letters'
 
 export function distributeLettersAtGameStart(
@@ -10,11 +10,15 @@ export function distributeLettersAtGameStart(
 ] {
     const availableLetters = [...letters]
 
-    const [availableLetters1, computerLetters] =
-        getPlayerLetters(availableLetters)
+    const [availableLetters1, computerLetters] = getPlayerLetters(
+        availableLetters,
+        LETTEROWNER.Computer
+    )
 
-    const [availableLetters2, personLetters] =
-        getPlayerLetters(availableLetters1)
+    const [availableLetters2, personLetters] = getPlayerLetters(
+        availableLetters1,
+        LETTEROWNER.Person
+    )
 
     return [availableLetters2, personLetters, computerLetters]
 }
@@ -24,7 +28,8 @@ function getRandomInt(max: number): number {
 }
 
 function getPlayerLetters(
-    availableLetters: ILetter[]
+    availableLetters: ILetter[],
+    letterOwner: LETTEROWNER
 ): [availableLetters: ILetter[], playerLetters: ILetter[]] {
     let letters: ILetter[] = [...availableLetters]
     const playerLetters: ILetter[] = []
@@ -32,6 +37,7 @@ function getPlayerLetters(
     for (let i = 0; i < GAMETERMS.MaxNumberLettersPerPlayer; i++) {
         const letterIndex: number = getRandomInt(letters.length)
         const playerLetter: ILetter = letters[letterIndex]
+        playerLetter.owner = letterOwner
         playerLetters.push(playerLetter)
 
         // remove letters from letter bag that have been assigned
