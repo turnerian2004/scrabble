@@ -21,7 +21,6 @@ function reducer(
         case UserActions.STARTGAME: {
             const [availableLetters, personLetters, computerLetters] =
                 distributeLettersAtGameStart(state.letters.available)
-
             const boardLetters: ILetter[] = []
             const updatedLetters: ILetters = {
                 available: availableLetters,

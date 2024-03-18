@@ -7,6 +7,8 @@ export function getComputerStartingWord(
 ) {
     const computerLetters: ILetter[] = [...letters]
 
+    console.log('computerLetters: ', computerLetters)
+
     const computerCharacters = computerLetters.map(
         (computerLetter) => computerLetter.character
     )
@@ -14,8 +16,18 @@ export function getComputerStartingWord(
     const computerAllLetterCombinations =
         getAllPossibleLetterCombinations(computerCharacters)
 
+    console.log(
+        'computerAllLetterCombinations: ',
+        computerAllLetterCombinations
+    )
+
     const computerAllWordCombinations = cleanWordList(
         computerAllLetterCombinations
+    )
+
+    console.log(
+        'computerAllWordCombinations: ',
+        computerAllWordCombinations
     )
 
     computerAllWordCombinations.sort(
@@ -39,15 +51,12 @@ function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
             const words =
                 allEnglishWords[firstLetter][letterCombination.length]
 
-            if (
-                words.some((word) => word.word === letterCombination)
-            ) {
-                // check the letter combination is a valid word
-                const matchingWord = words.find(
-                    (word) => word.word === letterCombination
-                )
+            const matchingWord = words.find(
+                (word) => word.word === letterCombination
+            )
 
-                allValidWords.push(matchingWord!)
+            if (matchingWord) {
+                allValidWords.push(matchingWord)
             }
         }
     })
