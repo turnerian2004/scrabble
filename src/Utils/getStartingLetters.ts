@@ -9,6 +9,8 @@ export function distributeLettersAtGameStart(
     computerLetters: ILetter[]
 ] {
     const availableLetters = [...letters]
+    console.log('availableLetters')
+    console.log(availableLetters)
 
     const [availableLetters1, computerLetters] = getPlayerLetters(
         availableLetters,
@@ -27,7 +29,7 @@ export function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max)
 }
 
-function getPlayerLetters(
+export function getPlayerLetters(
     availableLetters: ILetter[],
     letterOwner: LETTEROWNER
 ): [availableLetters: ILetter[], playerLetters: ILetter[]] {
@@ -36,7 +38,7 @@ function getPlayerLetters(
 
     for (let i = 0; i < GAMETERMS.MaxNumberLettersPerPlayer; i++) {
         const letterIndex: number = getRandomInt(letters.length)
-        const playerLetter: ILetter = letters[letterIndex]
+        const playerLetter: ILetter = { ...letters[letterIndex] }
         playerLetter.owner = letterOwner
         playerLetters.push(playerLetter)
 

@@ -1,5 +1,5 @@
 export enum LETTEROWNER {
-    LetterBag,
+    available,
     Person,
     Computer,
     Board,

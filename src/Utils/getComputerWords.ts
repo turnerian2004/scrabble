@@ -7,8 +7,6 @@ export function getComputerStartingWord(
 ) {
     const computerLetters: ILetter[] = [...letters]
 
-    console.log('computerLetters: ', computerLetters)
-
     const computerCharacters = computerLetters.map(
         (computerLetter) => computerLetter.character
     )
@@ -16,18 +14,8 @@ export function getComputerStartingWord(
     const computerAllLetterCombinations =
         getAllPossibleLetterCombinations(computerCharacters)
 
-    console.log(
-        'computerAllLetterCombinations: ',
-        computerAllLetterCombinations
-    )
-
     const computerAllWordCombinations = cleanWordList(
         computerAllLetterCombinations
-    )
-
-    console.log(
-        'computerAllWordCombinations: ',
-        computerAllWordCombinations
     )
 
     computerAllWordCombinations.sort(

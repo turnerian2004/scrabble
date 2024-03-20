@@ -1,3 +1,5 @@
+import { LETTEROWNER } from '../enums'
+
 export interface ILetter {
     character: string
     turnPlacedOnBoard: null | number
@@ -57,7 +59,7 @@ export function initializeLetterObjects(): ILetter[] {
         for (let i = 0; i < occurrenceFrequency; i++) {
             const newLetter: ILetter = {
                 character: character,
-                owner: null,
+                owner: LETTEROWNER.available,
                 pointValue: pointValue,
                 turnPlacedOnBoard: null,
                 uniqueIdentifier: getUniqueId(),
