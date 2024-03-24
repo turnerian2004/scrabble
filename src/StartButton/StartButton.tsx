@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button'
-
-import { UserActions } from '../State/UserActions'
+import { UserActions } from '../Definitions'
 
 export interface IUserAction {
     type: UserActions

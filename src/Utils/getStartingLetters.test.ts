@@ -1,4 +1,4 @@
-import { LETTEROWNER } from '../enums'
+import { LETTEROWNER } from '../Definitions'
 import { getPlayerLetters, getRandomInt } from './getStartingLetters'
 import { mockLetterTestData } from './mockLetterTestData'
 
