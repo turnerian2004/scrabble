@@ -1,4 +1,4 @@
-import { LETTEROWNER } from '../enums'
+import { LETTEROWNER } from '../Definitions'
 
 export interface ILetter {
     character: string

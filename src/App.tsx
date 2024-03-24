@@ -3,19 +3,23 @@ import { useReducer } from 'react'
 import './App.css'
 import { IState, initialState } from './State/initialState'
 import { IUserAction, StartButton } from './StartButton/StartButton'
-import { UserActions } from './State/UserActions'
 import { distributeLettersAtGameStart } from './Utils/getStartingLetters'
 import { ILetter, ILetters } from './Letters/Letters'
 import { getComputerStartingWord } from './Utils/getComputerWords'
 import {
-    BasicMenu,
-    IUserActionBasicMenu,
-} from './BasicMenu/BasicMenu'
-import { computerSkillLevel, wordHintType } from './BasicMenu/options'
+    BasicSelect,
+    IUserActionBasicSelect,
+} from './BasicSelect/BasicSelect'
+import {
+    UserActions,
+    computerSkillLevel,
+    welcomeMessage,
+} from './Definitions'
+import { IntroCard } from './Introduction/IntroCard'
 
 function reducer(
     state: IState,
-    action: IUserAction | IUserActionBasicMenu
+    action: IUserAction | IUserActionBasicSelect
 ) {
     switch (action.type) {
         case UserActions.STARTGAME: {
@@ -40,7 +44,7 @@ function reducer(
 
         case UserActions.SELECTCOMPUTERSKILLLEVEL: {
             const computerSkillLevel = (
-                action as IUserActionBasicMenu
+                action as IUserActionBasicSelect
             ).payload
 
             return {
@@ -57,19 +61,37 @@ function App() {
 
     return (
         <>
-            <StartButton dispatch={dispatch} />
-            <BasicMenu
-                options={computerSkillLevel}
-                title={'Computer Skill Level'}
-                dispatch={dispatch}
-            ></BasicMenu>
-            <BasicMenu
-                options={wordHintType}
-                title={'Word Hint Type'}
-                dispatch={dispatch}
-            ></BasicMenu>
-
-            <div className="text-red-400">Coming Soon!</div>
+            <div className="grid grid-cols-2 gap-2">
+                <div data-testid="1"></div>
+                <div
+                    data-testid="2"
+                    className="h-screen flex items-center justify-center"
+                >
+                    {!state.hasGameStarted && (
+                        <>
+                            <div className="flex flex-col items-center justify-center">
+                                <IntroCard
+                                    message={welcomeMessage}
+                                ></IntroCard>
+                                <StartButton dispatch={dispatch} />
+                            </div>
+                        </>
+                    )}
+                    {state.hasGameStarted &&
+                        state.computerSkillLevel === null && (
+                            <div className="w-48 h-5">
+                                <BasicSelect
+                                    options={computerSkillLevel}
+                                    title={'Opponent Skill Level'}
+                                    type={
+                                        UserActions.SELECTCOMPUTERSKILLLEVEL
+                                    }
+                                    dispatch={dispatch}
+                                ></BasicSelect>
+                            </div>
+                        )}
+                </div>
+            </div>
         </>
     )
 }

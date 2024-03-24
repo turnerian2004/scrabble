@@ -1,4 +1,4 @@
-import { GAMETERMS, LETTEROWNER } from '../enums'
+import { GAMETERMS, LETTEROWNER } from '../Definitions'
 import { ILetter } from '../Letters/Letters'
 
 export function distributeLettersAtGameStart(
