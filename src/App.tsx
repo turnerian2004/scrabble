@@ -69,7 +69,7 @@ function App() {
                 dispatch={dispatch}
             ></BasicMenu>
 
-            <div>Coming Soon!</div>
+            <div className="text-red-400">Coming Soon!</div>
         </>
     )
 }
