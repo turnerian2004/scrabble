@@ -53,14 +53,5 @@ describe('getPlayerLetters function', () => {
             const availableLetter = personLetters[i]
             expect(availableLetter.owner).toEqual(LETTEROWNER.Person)
         }
-
-        // console.log('availableLetters1')
-        // console.log(availableLetters1)
-        // console.log('availableLetters2')
-        // console.log(availableLetters2)
-        // console.log('computerLetters')
-        // console.log(computerLetters)
-        // console.log('personLetters')
-        // console.log(personLetters)
     })
 })

@@ -1,26 +1,25 @@
 import { ILetter } from '../Letters/Letters'
 import { WordEntry, allEnglishWords } from '../assests/words'
 
-export function getComputerStartingWord(
+export function getWordRecommendation(
     letters: ILetter[]
     // computerSkillLevel
 ) {
-    const computerLetters: ILetter[] = [...letters]
+    const playerLetters: ILetter[] = [...letters]
 
-    const computerCharacters = computerLetters.map(
+    const letterCharacters = playerLetters.map(
         (computerLetter) => computerLetter.character
     )
 
-    const computerAllLetterCombinations =
-        getAllPossibleLetterCombinations(computerCharacters)
+    const allLetterCombinations =
+        getAllPossibleLetterCombinations(letterCharacters)
 
-    const computerAllWordCombinations = cleanWordList(
-        computerAllLetterCombinations
-    )
+    const allWordCombinations = cleanWordList(allLetterCombinations)
 
-    computerAllWordCombinations.sort(
-        (a, b) => a.pointValue - b.pointValue
-    )
+    allWordCombinations.sort((a, b) => a.pointValue - b.pointValue)
+
+    console.log('XXX')
+    console.log('allWordCombinations: ', allWordCombinations)
 }
 
 function cleanWordList(allLetterCombinations: string[]): WordEntry[] {

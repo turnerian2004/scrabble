@@ -5,7 +5,7 @@ import { IState, initialState } from './State/initialState'
 import { IUserAction, StartButton } from './StartButton/StartButton'
 import { distributeLettersAtGameStart } from './Utils/getStartingLetters'
 import { ILetter, ILetters } from './Letters/Letters'
-import { getComputerStartingWord } from './Utils/getComputerWords'
+import { getWordRecommendation } from './Utils/getComputerWords'
 import {
     BasicSelect,
     IUserActionBasicSelect,
@@ -23,6 +23,17 @@ function reducer(
 ) {
     switch (action.type) {
         case UserActions.STARTGAME: {
+            return {
+                ...state,
+                hasGameStarted: true,
+            }
+        }
+
+        case UserActions.SELECTCOMPUTERSKILLLEVEL: {
+            const computerSkillLevel = (
+                action as IUserActionBasicSelect
+            ).payload
+
             const [availableLetters, personLetters, computerLetters] =
                 distributeLettersAtGameStart(state.letters.available)
             const boardLetters: ILetter[] = []
@@ -33,22 +44,16 @@ function reducer(
                 board: boardLetters,
             }
 
-            getComputerStartingWord(updatedLetters.computer)
+            console.log(
+                'updatedLetters.computer: ',
+                updatedLetters.computer
+            )
+
+            getWordRecommendation(updatedLetters.computer)
 
             return {
                 ...state,
                 letters: updatedLetters,
-                hasGameStarted: true,
-            }
-        }
-
-        case UserActions.SELECTCOMPUTERSKILLLEVEL: {
-            const computerSkillLevel = (
-                action as IUserActionBasicSelect
-            ).payload
-
-            return {
-                ...state,
                 computerSkillLevel: computerSkillLevel,
             }
         }

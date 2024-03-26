@@ -9,8 +9,6 @@ export function distributeLettersAtGameStart(
     computerLetters: ILetter[]
 ] {
     const availableLetters = [...letters]
-    console.log('availableLetters')
-    console.log(availableLetters)
 
     const [availableLetters1, computerLetters] = getPlayerLetters(
         availableLetters,
