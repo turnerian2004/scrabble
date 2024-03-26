@@ -6,7 +6,7 @@ export default {
             animation: {
                 'text-reveal':
                     'text-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s',
-                typewriter: 'typewriter 2s steps(45) forwards',
+                typewriter: 'typewriter 2s steps(60) forwards',
             },
             keyframes: {
                 'text-reveal': {

@@ -2,10 +2,9 @@ import { useReducer } from 'react'
 
 import './App.css'
 import { IState, initialState } from './State/initialState'
-import { IUserAction, StartButton } from './StartButton/StartButton'
+import { IStartAction, StartButton } from './StartButton/StartButton'
 import { distributeLettersAtGameStart } from './Utils/getStartingLetters'
 import { ILetter, ILetters } from './Letters/Letters'
-import { getComputerStartingWord } from './Utils/getComputerWords'
 import {
     BasicSelect,
     IUserActionBasicSelect,
@@ -19,8 +18,8 @@ import { IntroCard } from './Introduction/IntroCard'
 
 function reducer(
     state: IState,
-    action: IUserAction | IUserActionBasicSelect
-) {
+    action: IStartAction | IUserActionBasicSelect
+): IState {
     switch (action.type) {
         case UserActions.STARTGAME: {
             const [availableLetters, personLetters, computerLetters] =
@@ -32,32 +31,39 @@ function reducer(
                 person: personLetters,
                 board: boardLetters,
             }
-
-            getComputerStartingWord(updatedLetters.computer)
-
             return {
                 ...state,
-                letters: updatedLetters,
                 hasGameStarted: true,
+                letters: updatedLetters,
             }
         }
 
         case UserActions.SELECTCOMPUTERSKILLLEVEL: {
+            const recommendedWord = (action as IUserActionBasicSelect)
+                .payload[0]
+            const recommendedWords = (
+                action as IUserActionBasicSelect
+            ).payload[1]
             const computerSkillLevel = (
                 action as IUserActionBasicSelect
-            ).payload
+            ).payload[2]
 
             return {
                 ...state,
+                bestRecommendedWord: recommendedWord,
                 computerSkillLevel: computerSkillLevel,
+                recommendedWords: recommendedWords,
             }
         }
+
+        default:
+            return state
     }
 }
 
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(state)
+    console.log('state: ', state)
 
     return (
         <>
@@ -83,10 +89,10 @@ function App() {
                                 <BasicSelect
                                     options={computerSkillLevel}
                                     title={'Opponent Skill Level'}
-                                    type={
-                                        UserActions.SELECTCOMPUTERSKILLLEVEL
-                                    }
                                     dispatch={dispatch}
+                                    playerLetters={
+                                        state.letters.computer
+                                    }
                                 ></BasicSelect>
                             </div>
                         )}

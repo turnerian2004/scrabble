@@ -4,33 +4,75 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { UserActions } from '../Definitions'
+import {
+    UserActions,
+    freeDictionaryApiResponse,
+} from '../Definitions'
+import axios from 'axios'
+import { getRecommendedWords } from '../Utils/getRecommendedWords'
+import { ILetter } from '../Letters/Letters'
+import { WordEntry } from '../assests/words'
 
 export interface IUserActionBasicSelect {
     type: UserActions
-    payload: string
+    payload: [freeDictionaryApiResponse, WordEntry[], string]
 }
 
 interface IBasicSelect {
     options: string[]
     title: string
-    type: UserActions
     dispatch: React.Dispatch<IUserActionBasicSelect>
+    playerLetters: ILetter[]
 }
 
 export const BasicSelect: React.FC<IBasicSelect> = ({
     options,
     title,
-    type,
     dispatch,
+    playerLetters,
 }) => {
     const [userSelection, setUserSelection] = React.useState('')
 
-    const handleChange = (event: SelectChangeEvent) => {
+    const handleClick = async (event: SelectChangeEvent) => {
         setUserSelection(event.target.value as string)
-    }
+        const computerSkillLevel = event.target.value as string
 
-    console.log('type: ', type)
+        const wordRecommendations = getRecommendedWords(
+            playerLetters,
+            computerSkillLevel
+        )
+
+        let isValidWord = false
+
+        for (
+            let i = 0;
+            i < wordRecommendations.length && isValidWord === false;
+            i++
+        ) {
+            const topWordRecommendation = wordRecommendations[i]
+
+            try {
+                const response = await axios.get(
+                    `https://api.dictionaryapi.dev/api/v2/entries/en/${topWordRecommendation.word}`
+                )
+                const wordData = response.data[0]
+                isValidWord = true
+
+                if (isValidWord) {
+                    dispatch({
+                        type: UserActions.SELECTCOMPUTERSKILLLEVEL,
+                        payload: [
+                            wordData as freeDictionaryApiResponse,
+                            wordRecommendations,
+                            computerSkillLevel,
+                        ],
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 
     return (
         <div className="w-15 h-5">
@@ -48,19 +90,10 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
                         id="demo-simple-select"
                         value={userSelection}
                         label={title}
-                        onChange={handleChange}
+                        onChange={handleClick}
                     >
                         {options.map((option, index) => (
-                            <MenuItem
-                                value={option}
-                                key={index}
-                                onClick={() => {
-                                    dispatch({
-                                        type: UserActions.SELECTCOMPUTERSKILLLEVEL,
-                                        payload: option,
-                                    })
-                                }}
-                            >
+                            <MenuItem value={option} key={index}>
                                 {option}
                             </MenuItem>
                         ))}

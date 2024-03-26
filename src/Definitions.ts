@@ -10,9 +10,9 @@ export enum GAMETERMS {
 }
 
 export enum COMPUTERSKILLLEVEL {
-    Easy = 'easy',
-    Medium = 'medium',
-    Sensei = 'sensei',
+    Easy = 'Easy',
+    Medium = 'Medium',
+    Sensei = 'Sensei',
 }
 
 export enum UserActions {
@@ -37,3 +37,32 @@ export const wordHintType: string[] = [
 
 export const welcomeMessage =
     'Welcome! Here, you can play the boardgame scrabble. I played scrabble online but kept losing to the computer, so I decided to build my own variant where a computer could assist a person playing against the computer. After all, the only way to beat a computer is to use a computer! Enjoy!'
+
+export interface freeDictionaryApiResponse {
+    word: string
+    phonetics: {
+        audio: string
+        text: string
+        sourceUrl: string
+        license: {
+            name: string
+            url: string
+        }
+    }[]
+    meanings: {
+        partOfSpeech: string
+        definitions: {
+            definition: string
+            synonyms: string[]
+            antonyms: string[]
+            example?: string
+        }[]
+        synonyms: string[]
+        antonyms: string[]
+    }[]
+    license: {
+        name: string
+        url: string
+    }
+    sourceUrls: string[]
+}
