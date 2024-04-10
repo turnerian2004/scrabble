@@ -47,7 +47,6 @@ async function getWordDefition(sortedBySkillLevelWords: WordEntry[]) {
             )
 
             const wordDefinition = response.data[0]
-            console.log('wordDefinition: ', wordDefinition)
             isValidWord = true
             return wordDefinition
         } catch (error) {

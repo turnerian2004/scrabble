@@ -23,7 +23,9 @@ function reducer(
     switch (action.type) {
         case UserActions.STARTGAME: {
             const [availableLetters, personLetters, computerLetters] =
-                distributeLettersAtGameStart(state.letters.available)
+                distributeLettersAtGameStart(
+                    state.allLetters.available
+                )
             const boardLetters: ILetter[] = []
             const updatedLetters: ILetters = {
                 available: availableLetters,
@@ -34,19 +36,29 @@ function reducer(
             return {
                 ...state,
                 hasGameStarted: true,
-                letters: updatedLetters,
+                allLetters: updatedLetters,
             }
         }
 
         case UserActions.SELECTCOMPUTERSKILLLEVEL: {
             const recommendedWord = (action as IUserActionBasicSelect)
                 .payload[0]
-            const recommendedWords = (
+
+            const initialRecommendedWords = (
                 action as IUserActionBasicSelect
             ).payload[1]
+
             const computerSkillLevel = (
                 action as IUserActionBasicSelect
             ).payload[2]
+
+            const invalidWords = (action as IUserActionBasicSelect)
+                .payload[3]
+
+            const recommendedWords = initialRecommendedWords.filter(
+                (recommendedWord) =>
+                    !invalidWords.includes(recommendedWord)
+            )
 
             return {
                 ...state,
@@ -91,7 +103,7 @@ function App() {
                                     title={'Opponent Skill Level'}
                                     dispatch={dispatch}
                                     playerLetters={
-                                        state.letters.computer
+                                        state.allLetters.computer
                                     }
                                 ></BasicSelect>
                             </div>

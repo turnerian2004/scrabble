@@ -15,7 +15,12 @@ import { WordEntry } from '../assests/words'
 
 export interface IUserActionBasicSelect {
     type: UserActions
-    payload: [freeDictionaryApiResponse, WordEntry[], string]
+    payload: [
+        freeDictionaryApiResponse,
+        WordEntry[],
+        string,
+        WordEntry[],
+    ]
 }
 
 interface IBasicSelect {
@@ -42,6 +47,8 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
             computerSkillLevel
         )
 
+        const invalidWords: WordEntry[] = []
+
         let isValidWord = false
 
         for (
@@ -64,10 +71,12 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
                         wordData as freeDictionaryApiResponse,
                         wordRecommendations,
                         computerSkillLevel,
+                        invalidWords,
                     ],
                 })
             } catch (error) {
                 console.log(error)
+                invalidWords.push(topWordRecommendation)
             }
         }
     }

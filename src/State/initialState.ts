@@ -3,7 +3,7 @@ import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
 
 export interface IState {
-    letters: ILetters
+    allLetters: ILetters
     isGameOver: boolean
     hasGameStarted: boolean
     computerSkillLevel: string | null
@@ -19,7 +19,7 @@ const initialLetters: ILetters = {
 }
 
 export const initialState: IState = {
-    letters: initialLetters,
+    allLetters: initialLetters,
     isGameOver: false,
     hasGameStarted: false,
     computerSkillLevel: null,
