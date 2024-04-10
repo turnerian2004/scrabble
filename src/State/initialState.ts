@@ -9,6 +9,8 @@ export interface IState {
     computerSkillLevel: string | null
     bestRecommendedWord: freeDictionaryApiResponse | null
     recommendedWords: WordEntry[] | null
+    personsRequestedLevelOfSupport: null | string
+    personsRequestedHintType: null | string
 }
 
 const initialLetters: ILetters = {
@@ -25,4 +27,6 @@ export const initialState: IState = {
     computerSkillLevel: null,
     bestRecommendedWord: null,
     recommendedWords: null,
+    personsRequestedLevelOfSupport: null,
+    personsRequestedHintType: null,
 }

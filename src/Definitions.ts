@@ -18,12 +18,20 @@ export enum COMPUTERSKILLLEVEL {
 export enum UserActions {
     STARTGAME = 'Start Game',
     SELECTCOMPUTERSKILLLEVEL = 'Select Computer Skill Level',
+    LEVELSUPPORTREQUESTED = 'Level Support Desired',
+    HINTTYPEREQUESTED = 'Hint Type Desired',
 }
 
 export const computerSkillLevel: string[] = [
     'Easy',
     'Medium',
     'Sensei',
+]
+
+export const hintLevel: string[] = [
+    'Optimal Pick',
+    'Least Favorable',
+    'Moderate Scoring',
 ]
 
 export const wordHintType: string[] = [

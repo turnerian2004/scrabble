@@ -13,19 +13,19 @@ import { getRecommendedWords } from '../Utils/getRecommendedWords'
 import { ILetter } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
 
-export interface IUserActionBasicSelect {
+export interface IOpponentDispatch {
     type: UserActions
     payload: [freeDictionaryApiResponse, WordEntry[], string]
 }
 
-interface IBasicSelect {
+interface IOpponentSelect {
     options: string[]
     title: string
-    dispatch: React.Dispatch<IUserActionBasicSelect>
+    dispatch: React.Dispatch<IOpponentDispatch>
     playerLetters: ILetter[]
 }
 
-export const BasicSelect: React.FC<IBasicSelect> = ({
+export const OppenentSkillLevelSelect: React.FC<IOpponentSelect> = ({
     options,
     title,
     dispatch,

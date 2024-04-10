@@ -6,19 +6,22 @@ import { IStartAction, StartButton } from './StartButton/StartButton'
 import { distributeLettersAtGameStart } from './Utils/getStartingLetters'
 import { ILetter, ILetters } from './Letters/Letters'
 import {
-    BasicSelect,
-    IUserActionBasicSelect,
-} from './BasicSelect/BasicSelect'
+    OppenentSkillLevelSelect,
+    IOpponentDispatch as IOpponentDispatch,
+} from './SelectMenu/OpponentSkillLevelSelect'
 import {
     UserActions,
     computerSkillLevel,
+    hintLevel,
     welcomeMessage,
+    wordHintType,
 } from './Definitions'
 import { IntroCard } from './Introduction/IntroCard'
+import { BasicSelect, IBasicDispatch } from './SelectMenu/BasicSelect'
 
 function reducer(
     state: IState,
-    action: IStartAction | IUserActionBasicSelect
+    action: IStartAction | IOpponentDispatch | IBasicDispatch
 ): IState {
     switch (action.type) {
         case UserActions.STARTGAME: {
@@ -41,23 +44,40 @@ function reducer(
         }
 
         case UserActions.SELECTCOMPUTERSKILLLEVEL: {
-            const bestRecommendedWord = (
-                action as IUserActionBasicSelect
-            ).payload[0]
+            const bestRecommendedWord = (action as IOpponentDispatch)
+                .payload[0]
 
-            const recommendedWords = (
-                action as IUserActionBasicSelect
-            ).payload[1]
+            const recommendedWords = (action as IOpponentDispatch)
+                .payload[1]
 
-            const computerSkillLevel = (
-                action as IUserActionBasicSelect
-            ).payload[2]
+            const computerSkillLevel = (action as IOpponentDispatch)
+                .payload[2]
 
             return {
                 ...state,
                 bestRecommendedWord: bestRecommendedWord,
                 recommendedWords: recommendedWords,
                 computerSkillLevel: computerSkillLevel,
+            }
+        }
+
+        case UserActions.LEVELSUPPORTREQUESTED: {
+            const personsRequestedLevelOfSupport =
+                action.payload as string
+
+            return {
+                ...state,
+                personsRequestedLevelOfSupport:
+                    personsRequestedLevelOfSupport,
+            }
+        }
+
+        case UserActions.HINTTYPEREQUESTED: {
+            const personsRequestedHintType = action.payload as string
+
+            return {
+                ...state,
+                personsRequestedHintType: personsRequestedHintType,
             }
         }
 
@@ -91,12 +111,35 @@ function App() {
                     {state.hasGameStarted &&
                         state.computerSkillLevel === null && (
                             <div className="w-48 h-5">
-                                <BasicSelect
+                                <OppenentSkillLevelSelect
                                     options={computerSkillLevel}
                                     title={'Opponent Skill Level'}
                                     dispatch={dispatch}
                                     playerLetters={
                                         state.allLetters.computer
+                                    }
+                                ></OppenentSkillLevelSelect>
+                            </div>
+                        )}
+
+                    {state.hasGameStarted &&
+                        state.computerSkillLevel !== null && (
+                            <div>
+                                <BasicSelect
+                                    title="Level of Support"
+                                    options={hintLevel}
+                                    dispatch={dispatch}
+                                    type={
+                                        UserActions.LEVELSUPPORTREQUESTED
+                                    }
+                                ></BasicSelect>
+
+                                <BasicSelect
+                                    title="Hint Type"
+                                    options={wordHintType}
+                                    dispatch={dispatch}
+                                    type={
+                                        UserActions.HINTTYPEREQUESTED
                                     }
                                 ></BasicSelect>
                             </div>
