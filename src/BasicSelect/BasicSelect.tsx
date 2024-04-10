@@ -58,16 +58,14 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
                 const wordData = response.data[0]
                 isValidWord = true
 
-                if (isValidWord) {
-                    dispatch({
-                        type: UserActions.SELECTCOMPUTERSKILLLEVEL,
-                        payload: [
-                            wordData as freeDictionaryApiResponse,
-                            wordRecommendations,
-                            computerSkillLevel,
-                        ],
-                    })
-                }
+                dispatch({
+                    type: UserActions.SELECTCOMPUTERSKILLLEVEL,
+                    payload: [
+                        wordData as freeDictionaryApiResponse,
+                        wordRecommendations,
+                        computerSkillLevel,
+                    ],
+                })
             } catch (error) {
                 console.log(error)
             }
