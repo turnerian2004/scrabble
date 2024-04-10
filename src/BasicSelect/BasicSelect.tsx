@@ -15,12 +15,7 @@ import { WordEntry } from '../assests/words'
 
 export interface IUserActionBasicSelect {
     type: UserActions
-    payload: [
-        freeDictionaryApiResponse,
-        WordEntry[],
-        string,
-        WordEntry[],
-    ]
+    payload: [freeDictionaryApiResponse, WordEntry[], string]
 }
 
 interface IBasicSelect {
@@ -42,7 +37,7 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
         setUserSelection(event.target.value as string)
         const computerSkillLevel = event.target.value as string
 
-        const wordRecommendations = getRecommendedWords(
+        const initialWordRecommendations = getRecommendedWords(
             playerLetters,
             computerSkillLevel
         )
@@ -53,10 +48,12 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
 
         for (
             let i = 0;
-            i < wordRecommendations.length && isValidWord === false;
+            i < initialWordRecommendations.length &&
+            isValidWord === false;
             i++
         ) {
-            const topWordRecommendation = wordRecommendations[i]
+            const topWordRecommendation =
+                initialWordRecommendations[i]
 
             try {
                 const response = await axios.get(
@@ -65,13 +62,18 @@ export const BasicSelect: React.FC<IBasicSelect> = ({
                 const wordData = response.data[0]
                 isValidWord = true
 
+                const recommendedWords =
+                    initialWordRecommendations.filter(
+                        (recommendedWord) =>
+                            !invalidWords.includes(recommendedWord)
+                    )
+
                 dispatch({
                     type: UserActions.SELECTCOMPUTERSKILLLEVEL,
                     payload: [
                         wordData as freeDictionaryApiResponse,
-                        wordRecommendations,
+                        recommendedWords,
                         computerSkillLevel,
-                        invalidWords,
                     ],
                 })
             } catch (error) {

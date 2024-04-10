@@ -41,10 +41,11 @@ function reducer(
         }
 
         case UserActions.SELECTCOMPUTERSKILLLEVEL: {
-            const recommendedWord = (action as IUserActionBasicSelect)
-                .payload[0]
+            const bestRecommendedWord = (
+                action as IUserActionBasicSelect
+            ).payload[0]
 
-            const initialRecommendedWords = (
+            const recommendedWords = (
                 action as IUserActionBasicSelect
             ).payload[1]
 
@@ -52,19 +53,11 @@ function reducer(
                 action as IUserActionBasicSelect
             ).payload[2]
 
-            const invalidWords = (action as IUserActionBasicSelect)
-                .payload[3]
-
-            const recommendedWords = initialRecommendedWords.filter(
-                (recommendedWord) =>
-                    !invalidWords.includes(recommendedWord)
-            )
-
             return {
                 ...state,
-                bestRecommendedWord: recommendedWord,
-                computerSkillLevel: computerSkillLevel,
+                bestRecommendedWord: bestRecommendedWord,
                 recommendedWords: recommendedWords,
+                computerSkillLevel: computerSkillLevel,
             }
         }
 
