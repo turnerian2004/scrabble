@@ -13,7 +13,7 @@ export interface IState {
     personsRequestedHintType: null | string
 }
 
-const initialLetters: ILetters = {
+export const initialLetters: ILetters = {
     available: initializeLetterObjects(),
     computer: [],
     person: [],

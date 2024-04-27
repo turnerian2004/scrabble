@@ -1,37 +1,25 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import {
-    UserActions,
-    freeDictionaryApiResponse,
-} from '../Definitions'
-import axios from 'axios'
+import { ILetters } from '../Letters/Letters'
+import { UserActions } from '../Definitions'
+import { useStartButton } from '../Context/customHooks'
+import { useNavigate } from 'react-router-dom'
 
 export interface IStartAction {
     type: UserActions
-    payload: freeDictionaryApiResponse
+    payload: ILetters
 }
 
-interface IStartButtonProps {
-    dispatch: React.Dispatch<IStartAction>
-}
+export const StartButton: React.FC = () => {
+    const { hasGameStarted, startGame } = useStartButton()
+    const navigate = useNavigate()
 
-export const StartButton: React.FC<IStartButtonProps> = ({
-    dispatch,
-}) => {
-    const handleClick = async () => {
-        try {
-            const response = await axios.get(
-                'https://api.dictionaryapi.dev/api/v2/entries/en/hello'
-            )
-            const wordData = response.data[0]
+    console.log('hasGameStarted: ', hasGameStarted)
 
-            dispatch({
-                type: UserActions.STARTGAME,
-                payload: wordData as freeDictionaryApiResponse,
-            })
-        } catch (error) {
-            console.log(error)
-        }
+    const handleClick = () => {
+        startGame()
+
+        navigate('/visitor')
     }
 
     return (
