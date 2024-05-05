@@ -11,14 +11,11 @@ export interface IStartAction {
 }
 
 export const StartButton: React.FC = () => {
-    const { hasGameStarted, startGame } = useStartButton()
+    const { startGame } = useStartButton()
     const navigate = useNavigate()
-
-    console.log('hasGameStarted: ', hasGameStarted)
 
     const handleClick = () => {
         startGame()
-
         navigate('/visitor')
     }
 
@@ -27,17 +24,9 @@ export const StartButton: React.FC = () => {
             style={{ textTransform: 'none' }}
             variant="outlined"
             onClick={handleClick}
-            className="absolute"
+            className="w-12 h-8 animate-pulse"
         >
-            <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
-                <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                </span>
-            </div>
             Start!
         </Button>
     )
 }
-
-export default StartButton

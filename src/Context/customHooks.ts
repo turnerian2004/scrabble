@@ -2,18 +2,13 @@ import { useContext } from 'react'
 import { ScrabbleContext } from './ScrabbleContext'
 
 type useStartButtonType = {
-    hasGameStarted: boolean
     startGame: () => void
 }
 
 export const useStartButton = (): useStartButtonType => {
-    const {
-        state: { hasGameStarted },
-        startGame,
-    } = useContext(ScrabbleContext)
+    const { startGame } = useContext(ScrabbleContext)
 
     return {
-        hasGameStarted,
         startGame,
     }
 }
