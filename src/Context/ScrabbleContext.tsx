@@ -1,72 +1,23 @@
-import { createContext, useCallback, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import { IState, initialState } from './initialState'
-import { IOpponentDispatch } from '../SelectMenu/OpponentSkillLevelSelect'
-import { IBasicDispatch } from '../SelectMenu/BasicSelect'
 import { distributeLettersAtGameStart } from '../Utils/getStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
 import { UserActions } from '../Definitions'
-import { IStartAction } from '../StartButton/StartButton'
 
-function reducer(
-    state: IState,
-    action: IStartAction | IOpponentDispatch | IBasicDispatch
-): IState {
+type ActionType = {
+    type: UserActions
+    payload?: ILetters
+}
+
+function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.STARTGAME: {
-            const [availableLetters, personLetters, computerLetters] =
-                distributeLettersAtGameStart(
-                    state.allLetters.available
-                )
-            const boardLetters: ILetter[] = []
-            const updatedLetters: ILetters = {
-                available: availableLetters,
-                computer: computerLetters,
-                person: personLetters,
-                board: boardLetters,
-            }
+            const payload = action.payload as ILetters
 
             return {
                 ...state,
                 hasGameStarted: true,
-                allLetters: updatedLetters,
-            }
-        }
-
-        case UserActions.SELECTCOMPUTERSKILLLEVEL: {
-            const bestRecommendedWord = (action as IOpponentDispatch)
-                .payload[0]
-
-            const recommendedWords = (action as IOpponentDispatch)
-                .payload[1]
-
-            const computerSkillLevel = (action as IOpponentDispatch)
-                .payload[2]
-
-            return {
-                ...state,
-                bestRecommendedWord: bestRecommendedWord,
-                recommendedWords: recommendedWords,
-                computerSkillLevel: computerSkillLevel,
-            }
-        }
-
-        case UserActions.LEVELSUPPORTREQUESTED: {
-            const personsRequestedLevelOfSupport =
-                action.payload as string
-
-            return {
-                ...state,
-                personsRequestedLevelOfSupport:
-                    personsRequestedLevelOfSupport,
-            }
-        }
-
-        case UserActions.HINTTYPEREQUESTED: {
-            const personsRequestedHintType = action.payload as string
-
-            return {
-                ...state,
-                personsRequestedHintType: personsRequestedHintType,
+                allLetters: payload,
             }
         }
 
@@ -75,10 +26,13 @@ function reducer(
     }
 }
 
+export type { ActionType }
+
 const useScrabbleContext = (initialState: IState) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+    console.log('state: ', state)
 
-    const startGame = useCallback(() => {
+    const startGame = () => {
         const [availableLetters, personLetters, computerLetters] =
             distributeLettersAtGameStart(state.allLetters.available)
         const boardLetters: ILetter[] = []
@@ -93,7 +47,7 @@ const useScrabbleContext = (initialState: IState) => {
             type: UserActions.STARTGAME,
             payload: updatedLetters,
         })
-    }, [state.allLetters.available])
+    }
 
     return { state, startGame }
 }

@@ -2,8 +2,8 @@ import { ScrabbleProvider } from './Context/ScrabbleContext'
 import { initialState } from './Context/initialState'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { StartPage } from './Pages/start'
-import { VisitorPage } from './Pages/selectOpponent'
+import { StartPage } from './Pages/StartPage'
+import { VisitorPage } from './Pages/SelectOpponentPage'
 
 function App() {
     return (
