@@ -1,6 +1,6 @@
 import { welcomeMessage } from '../Definitions'
 import { IntroCard } from '../Introduction/IntroCard'
-import { useStartButton } from '../Context/customHooks'
+import { useStartButton } from '../Context/CustomHooks'
 import { useNavigate } from 'react-router-dom'
 import { UserButton } from '../Components/UserButton'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
@@ -22,7 +22,10 @@ export const StartPage = () => {
                 <div className="animate-bounce">
                     <ArrowDownwardIcon></ArrowDownwardIcon>
                 </div>
-                <UserButton onClick={handleStartGame}></UserButton>
+                <UserButton
+                    onClick={handleStartGame}
+                    title={'Start!'}
+                ></UserButton>
             </div>
         </div>
     )

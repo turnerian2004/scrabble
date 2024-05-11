@@ -1,23 +1,50 @@
 import { createContext, useReducer } from 'react'
-import { IState, initialState } from './initialState'
-import { distributeLettersAtGameStart } from '../Utils/getStartingLetters'
+import { IState, initialState } from './InitialState'
+import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
 import { UserActions } from '../Definitions'
 
 type ActionType = {
     type: UserActions
-    payload?: ILetters
+    payload?: ILetters | string
 }
 
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
-        case UserActions.STARTGAME: {
-            const payload = action.payload as ILetters
+        case UserActions.StartGame: {
+            const assignLettersOwners = action.payload as ILetters
 
             return {
                 ...state,
                 hasGameStarted: true,
-                allLetters: payload,
+                allLetters: assignLettersOwners,
+            }
+        }
+
+        case UserActions.SelectComputerSkillLevel: {
+            const computerSkillLevel = action.payload as string
+
+            return {
+                ...state,
+                computerSkillLevel: computerSkillLevel,
+            }
+        }
+
+        case UserActions.GameTimeLimit: {
+            const gameTimeLimit = action.payload as string
+
+            return {
+                ...state,
+                gameTimeLimit: gameTimeLimit,
+            }
+        }
+
+        case UserActions.TurnTimeLimit: {
+            const turnTimeLimit = action.payload as string
+
+            return {
+                ...state,
+                turnTimeLimit: turnTimeLimit,
             }
         }
 
@@ -44,12 +71,39 @@ const useScrabbleContext = (initialState: IState) => {
         }
 
         dispatch({
-            type: UserActions.STARTGAME,
+            type: UserActions.StartGame,
             payload: updatedLetters,
         })
     }
 
-    return { state, startGame }
+    const selectComputerSkillLevel = (computerSkillLevel: string) => {
+        dispatch({
+            type: UserActions.SelectComputerSkillLevel,
+            payload: computerSkillLevel,
+        })
+    }
+
+    const gameTimeLimit = (gameTimeLimit: string) => {
+        dispatch({
+            type: UserActions.GameTimeLimit,
+            payload: gameTimeLimit,
+        })
+    }
+
+    const turnTimeLimit = (turnTimeLimit: string) => {
+        dispatch({
+            type: UserActions.TurnTimeLimit,
+            payload: turnTimeLimit,
+        })
+    }
+
+    return {
+        state,
+        startGame,
+        selectComputerSkillLevel,
+        gameTimeLimit,
+        turnTimeLimit,
+    }
 }
 
 type UseScrabbleContextType = ReturnType<typeof useScrabbleContext>
@@ -57,6 +111,9 @@ type UseScrabbleContextType = ReturnType<typeof useScrabbleContext>
 const initialContextState: UseScrabbleContextType = {
     state: initialState,
     startGame: () => {},
+    selectComputerSkillLevel: () => {},
+    gameTimeLimit: () => {},
+    turnTimeLimit: () => {},
 }
 
 export const ScrabbleContext = createContext<UseScrabbleContextType>(

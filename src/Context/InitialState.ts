@@ -7,6 +7,8 @@ export interface IState {
     isGameOver: boolean
     hasGameStarted: boolean
     computerSkillLevel: string | null
+    gameTimeLimit: string | null
+    turnTimeLimit: string | null
     bestRecommendedWord: freeDictionaryApiResponse | null
     recommendedWords: WordEntry[] | null
     personsRequestedLevelOfSupport: null | string
@@ -25,6 +27,8 @@ export const initialState: IState = {
     isGameOver: false,
     hasGameStarted: false,
     computerSkillLevel: null,
+    gameTimeLimit: null,
+    turnTimeLimit: null,
     bestRecommendedWord: null,
     recommendedWords: null,
     personsRequestedLevelOfSupport: null,

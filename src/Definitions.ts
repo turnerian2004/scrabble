@@ -16,16 +16,35 @@ export enum COMPUTERSKILLLEVEL {
 }
 
 export enum UserActions {
-    STARTGAME = 'Start Game',
-    SELECTCOMPUTERSKILLLEVEL = 'Select Computer Skill Level',
-    LEVELSUPPORTREQUESTED = 'Level Support Desired',
-    HINTTYPEREQUESTED = 'Hint Type Desired',
+    StartGame = 'Start Game',
+    SelectComputerSkillLevel = 'Select Computer Skill Level',
+    LevelSupportRequested = 'Level Support Desired',
+    HintTypeRequested = 'Hint Type Desired',
+    GameTimeLimit = 'Game Time Limit',
+    TurnTimeLimit = 'Turn Time Limit',
 }
 
 export const computerSkillLevel: string[] = [
     'Easy',
     'Medium',
     'Sensei',
+]
+
+export const turnTimeLimitOptions: string[] = [
+    '1',
+    '2',
+    '5',
+    '10',
+    'none',
+]
+
+export const gameTimeLimitOptions: string[] = [
+    '5',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
 ]
 
 export const hintLevel: string[] = [

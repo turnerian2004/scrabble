@@ -1,5 +1,5 @@
 import { ScrabbleProvider } from './Context/ScrabbleContext'
-import { initialState } from './Context/initialState'
+import { initialState } from './Context/InitialState'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { StartPage } from './Pages/StartPage'

@@ -1,6 +1,6 @@
 import { LETTEROWNER } from '../Definitions'
-import { getPlayerLetters, getRandomInt } from './getStartingLetters'
-import { mockLetterTestData } from './mockLetterTestData'
+import { getPlayerLetters, getRandomInt } from './GetStartingLetters'
+import { mockLetterTestData } from './MockLetterTestData'
 
 describe('getRandomInt function', () => {
     test('should return a random integer less than the given maximum value', () => {
