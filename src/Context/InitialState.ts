@@ -6,6 +6,7 @@ export interface IState {
     allLetters: ILetters
     isGameOver: boolean
     hasGameStarted: boolean
+    proceedToOpponentSelectPage: boolean
     computerSkillLevel: string | null
     gameTimeLimit: string | null
     turnTimeLimit: string | null
@@ -26,6 +27,7 @@ export const initialState: IState = {
     allLetters: initialLetters,
     isGameOver: false,
     hasGameStarted: false,
+    proceedToOpponentSelectPage: false,
     computerSkillLevel: null,
     gameTimeLimit: null,
     turnTimeLimit: null,

@@ -11,12 +11,22 @@ import {
     gameTimeLimitOptions,
 } from '../Definitions'
 import { UserButton } from '../Components/UserButton'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export const VisitorPage = () => {
     const { selectComputerSkillLevel } = useSelectComputerSkillLevel()
     const { gameTimeLimit } = useGameTimeLimit()
     const { turnTimeLimit } = useTurnTimeLimit()
     const { state } = useScrabbleState()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (state.proceedToOpponentSelectPage === false) {
+            navigate('/')
+        }
+    })
 
     return (
         <>

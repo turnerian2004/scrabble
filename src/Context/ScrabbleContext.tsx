@@ -16,7 +16,7 @@ function reducer(state: IState, action: ActionType): IState {
 
             return {
                 ...state,
-                hasGameStarted: true,
+                proceedToOpponentSelectPage: true,
                 allLetters: assignLettersOwners,
             }
         }
