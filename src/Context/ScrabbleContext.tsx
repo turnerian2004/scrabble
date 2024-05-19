@@ -11,7 +11,7 @@ type ActionType = {
 
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
-        case UserActions.StartGame: {
+        case UserActions.ProceedToOpponentSelectPage: {
             const assignLettersOwners = action.payload as ILetters
 
             return {
@@ -71,7 +71,7 @@ const useScrabbleContext = (initialState: IState) => {
         }
 
         dispatch({
-            type: UserActions.StartGame,
+            type: UserActions.ProceedToOpponentSelectPage,
             payload: updatedLetters,
         })
     }

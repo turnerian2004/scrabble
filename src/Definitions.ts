@@ -16,6 +16,7 @@ export enum COMPUTERSKILLLEVEL {
 }
 
 export enum UserActions {
+    ProceedToOpponentSelectPage = 'Proceed To Opponent Select Page',
     StartGame = 'Start Game',
     SelectComputerSkillLevel = 'Select Computer Skill Level',
     LevelSupportRequested = 'Level Support Desired',
