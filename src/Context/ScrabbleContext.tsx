@@ -3,14 +3,23 @@ import { IState, initialState } from './InitialState'
 import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
 import { UserActions } from '../Definitions'
+import { getRecommendedWords } from '../Utils/GetRecommendedWords'
+import { WordEntry } from '../assests/words'
 
 type ActionType = {
     type: UserActions
-    payload?: ILetters | string
+    payload?: ILetters | string | WordEntry[]
 }
 
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
+        case UserActions.StartGame: {
+            const wordEntries = action.payload as WordEntry[]
+            console.log('wordEntries: ', wordEntries)
+
+            return { ...state }
+        }
+
         case UserActions.ProceedToOpponentSelectPage: {
             const assignLettersOwners = action.payload as ILetters
 
@@ -59,6 +68,18 @@ const useScrabbleContext = (initialState: IState) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log('state: ', state)
 
+    const startGame = () => {
+        const computerWords = getRecommendedWords(
+            state.allLetters.computer,
+            state.computerSkillLevel as string
+        )
+
+        dispatch({
+            type: UserActions.StartGame,
+            payload: computerWords,
+        })
+    }
+
     const proceedToOpponentPage = () => {
         const [availableLetters, personLetters, computerLetters] =
             distributeLettersAtGameStart(state.allLetters.available)
@@ -103,6 +124,7 @@ const useScrabbleContext = (initialState: IState) => {
         selectComputerSkillLevel,
         gameTimeLimit,
         turnTimeLimit,
+        startGame,
     }
 }
 
@@ -114,6 +136,7 @@ const initialContextState: UseScrabbleContextType = {
     selectComputerSkillLevel: () => {},
     gameTimeLimit: () => {},
     turnTimeLimit: () => {},
+    startGame: () => {},
 }
 
 export const ScrabbleContext = createContext<UseScrabbleContextType>(

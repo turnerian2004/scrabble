@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { WelcomePage } from './Pages/WelcomePage'
 import { VisitorPage } from './Pages/SelectOpponentPage'
+import { GamePage } from './Pages/GamePage'
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                             path="/visitor"
                             Component={VisitorPage}
                         />
+                        <Route path="/game" Component={GamePage} />
                     </Routes>
                 </BrowserRouter>
             </ScrabbleProvider>

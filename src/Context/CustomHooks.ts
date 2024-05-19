@@ -2,6 +2,16 @@ import { useContext } from 'react'
 import { ScrabbleContext } from './ScrabbleContext'
 import { IState } from './InitialState'
 
+type useStartGameType = {
+    startGame: () => void
+}
+
+export const useStartGame = (): useStartGameType => {
+    const { startGame } = useContext(ScrabbleContext)
+
+    return { startGame }
+}
+
 type useProceedToOpponentPageType = {
     proceedToOpponentPage: () => void
 }

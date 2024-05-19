@@ -4,6 +4,7 @@ import {
     useTurnTimeLimit,
     useSelectComputerSkillLevel,
     useScrabbleState,
+    useStartGame,
 } from '../Context/CustomHooks'
 import {
     computerSkillLevel,
@@ -19,6 +20,7 @@ export const VisitorPage = () => {
     const { gameTimeLimit } = useGameTimeLimit()
     const { turnTimeLimit } = useTurnTimeLimit()
     const { state } = useScrabbleState()
+    const { startGame } = useStartGame()
 
     const navigate = useNavigate()
 
@@ -27,6 +29,11 @@ export const VisitorPage = () => {
             navigate('/')
         }
     })
+
+    const handleClick = () => {
+        startGame()
+        navigate('/game')
+    }
 
     return (
         <>
@@ -54,9 +61,9 @@ export const VisitorPage = () => {
                     )}
                     {state.gameTimeLimit !== null && (
                         <UserButton
-                            onClick={() =>
-                                console.log('opponent select page')
-                            }
+                            onClick={() => {
+                                handleClick()
+                            }}
                             title={'Start Game!'}
                         ></UserButton>
                     )}
