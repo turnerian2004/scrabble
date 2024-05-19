@@ -19,7 +19,7 @@ export const UserButton: React.FC<ButtonProps> = ({
             }}
             variant="outlined"
             onClick={onClick}
-            className="w-12 h-8"
+            className="h-8 w-12"
         >
             {title}
         </Button>

@@ -1,7 +1,9 @@
+import { LetterTile } from '../Components/LetterTile'
+
 export const GamePage = () => {
     return (
-        <div className="grid grid-cols-2 gap-4 h-screen justify-center">
-            <div>Board</div>
+        <div className="grid h-screen grid-cols-2 justify-center gap-4">
+            <LetterTile character="j" pointValue={10}></LetterTile>
             <div>Player Statistics</div>
         </div>
     )

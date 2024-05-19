@@ -34,9 +34,9 @@ export const WelcomePage = () => {
     }, [])
 
     return (
-        <div className="grid grid-cols-2 gap-4 h-screen justify-center">
+        <div className="grid h-screen grid-cols-2 justify-center gap-4">
             <div></div>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center justify-center">
                 <IntroCard message={welcomeMessage}></IntroCard>
                 {showArrowDownwardIcon && (
                     <div className="animate-bounce">
