@@ -23,6 +23,7 @@ export enum UserActions {
     HintTypeRequested = 'Hint Type Desired',
     GameTimeLimit = 'Game Time Limit',
     TurnTimeLimit = 'Turn Time Limit',
+    MoveLetterToBoard = 'Move Letter to Board',
 }
 
 export const computerSkillLevel: string[] = [
