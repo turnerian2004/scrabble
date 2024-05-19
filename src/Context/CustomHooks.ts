@@ -2,15 +2,16 @@ import { useContext } from 'react'
 import { ScrabbleContext } from './ScrabbleContext'
 import { IState } from './InitialState'
 
-type useStartButtonType = {
-    startGame: () => void
+type useProceedToOpponentPageType = {
+    proceedToOpponentPage: () => void
 }
 
-export const useStartButton = (): useStartButtonType => {
-    const { startGame } = useContext(ScrabbleContext)
+export const useProceedToOpponentPage =
+    (): useProceedToOpponentPageType => {
+        const { proceedToOpponentPage } = useContext(ScrabbleContext)
 
-    return { startGame }
-}
+        return { proceedToOpponentPage }
+    }
 
 type useSelectComputerSkillLevelType = {
     selectComputerSkillLevel: (computerSkillLevel: string) => void

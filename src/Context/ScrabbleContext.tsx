@@ -59,7 +59,7 @@ const useScrabbleContext = (initialState: IState) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log('state: ', state)
 
-    const startGame = () => {
+    const proceedToOpponentPage = () => {
         const [availableLetters, personLetters, computerLetters] =
             distributeLettersAtGameStart(state.allLetters.available)
         const boardLetters: ILetter[] = []
@@ -99,7 +99,7 @@ const useScrabbleContext = (initialState: IState) => {
 
     return {
         state,
-        startGame,
+        proceedToOpponentPage,
         selectComputerSkillLevel,
         gameTimeLimit,
         turnTimeLimit,
@@ -110,7 +110,7 @@ type UseScrabbleContextType = ReturnType<typeof useScrabbleContext>
 
 const initialContextState: UseScrabbleContextType = {
     state: initialState,
-    startGame: () => {},
+    proceedToOpponentPage: () => {},
     selectComputerSkillLevel: () => {},
     gameTimeLimit: () => {},
     turnTimeLimit: () => {},

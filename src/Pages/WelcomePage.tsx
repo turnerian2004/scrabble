@@ -1,21 +1,21 @@
 import { welcomeMessage } from '../Definitions'
 import { IntroCard } from '../Introduction/IntroCard'
-import { useStartButton } from '../Context/CustomHooks'
+import { useProceedToOpponentPage } from '../Context/CustomHooks'
 import { useNavigate } from 'react-router-dom'
 import { UserButton } from '../Components/UserButton'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { useEffect, useState } from 'react'
 
-export const StartPage = () => {
+export const WelcomePage = () => {
     const [showButton, setShowButton] = useState(false)
     const [showArrowDownwardIcon, setShowArrowDownwardIcon] =
         useState(false)
 
-    const { startGame } = useStartButton()
+    const { proceedToOpponentPage } = useProceedToOpponentPage()
     const navigate = useNavigate()
 
-    const handleStartGame = () => {
-        startGame()
+    const handleWelcome = () => {
+        proceedToOpponentPage()
         navigate('/visitor')
     }
 
@@ -45,7 +45,7 @@ export const StartPage = () => {
                 )}
                 {showButton && (
                     <UserButton
-                        onClick={handleStartGame}
+                        onClick={handleWelcome}
                         title={'Start!'}
                     ></UserButton>
                 )}
