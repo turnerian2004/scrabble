@@ -3,6 +3,7 @@ import {
     useGameTimeLimit,
     useTurnTimeLimit,
     useSelectComputerSkillLevel,
+    useScrabbleState,
 } from '../Context/CustomHooks'
 import {
     computerSkillLevel,
@@ -15,6 +16,7 @@ export const VisitorPage = () => {
     const { selectComputerSkillLevel } = useSelectComputerSkillLevel()
     const { gameTimeLimit } = useGameTimeLimit()
     const { turnTimeLimit } = useTurnTimeLimit()
+    const { state } = useScrabbleState()
 
     return (
         <>
@@ -26,22 +28,28 @@ export const VisitorPage = () => {
                         options={computerSkillLevel}
                         onClick={selectComputerSkillLevel}
                     ></UserSelectMenu>
-                    <UserSelectMenu
-                        title="Turn Time Limit"
-                        options={turnTimeLimitOptions}
-                        onClick={turnTimeLimit}
-                    ></UserSelectMenu>
-                    <UserSelectMenu
-                        title="Game Time Limit"
-                        options={gameTimeLimitOptions}
-                        onClick={gameTimeLimit}
-                    ></UserSelectMenu>
-                    <UserButton
-                        onClick={() =>
-                            console.log('opponent select page')
-                        }
-                        title={'Start Game!'}
-                    ></UserButton>
+                    {state.computerSkillLevel !== null && (
+                        <UserSelectMenu
+                            title="Turn Time Limit"
+                            options={turnTimeLimitOptions}
+                            onClick={turnTimeLimit}
+                        ></UserSelectMenu>
+                    )}
+                    {state.turnTimeLimit !== null && (
+                        <UserSelectMenu
+                            title="Game Time Limit"
+                            options={gameTimeLimitOptions}
+                            onClick={gameTimeLimit}
+                        ></UserSelectMenu>
+                    )}
+                    {state.gameTimeLimit !== null && (
+                        <UserButton
+                            onClick={() =>
+                                console.log('opponent select page')
+                            }
+                            title={'Start Game!'}
+                        ></UserButton>
+                    )}
                 </div>
             </div>
         </>
