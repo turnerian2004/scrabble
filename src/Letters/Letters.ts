@@ -1,9 +1,9 @@
-import { LETTEROWNER } from '../Definitions'
+import { LetterOwner } from '../Definitions'
 
 export interface ILetter {
     character: string
     turnPlacedOnBoard: null | number
-    owner: null | number
+    location: number
     pointValue: number
     uniqueIdentifier: string
 }
@@ -59,7 +59,7 @@ export function initializeLetterObjects(): ILetter[] {
         for (let i = 0; i < occurrenceFrequency; i++) {
             const newLetter: ILetter = {
                 character: character,
-                owner: LETTEROWNER.available,
+                location: LetterOwner.Available,
                 pointValue: pointValue,
                 turnPlacedOnBoard: null,
                 uniqueIdentifier: getUniqueId(),

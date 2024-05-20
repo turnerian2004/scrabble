@@ -1,4 +1,3 @@
-import { LetterTileProps } from '../Components/LetterTile'
 import { freeDictionaryApiResponse } from '../Definitions'
 import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
@@ -15,7 +14,6 @@ export interface IState {
     recommendedWords: WordEntry[] | null
     personsRequestedLevelOfSupport: null | string
     personsRequestedHintType: null | string
-    testLetters: LetterTileProps[]
 }
 
 export const initialLetters: ILetters = {
@@ -24,24 +22,6 @@ export const initialLetters: ILetters = {
     person: [],
     board: [],
 }
-
-const letterTiles = [
-    {
-        character: 'a',
-        pointValue: 1,
-        uniqueIdentifier: 'a1',
-    },
-    {
-        character: 'b',
-        pointValue: 2,
-        uniqueIdentifier: 'b1',
-    },
-    {
-        character: 'c',
-        pointValue: 3,
-        uniqueIdentifier: 'c3',
-    },
-]
 
 export const initialState: IState = {
     allLetters: initialLetters,
@@ -55,5 +35,4 @@ export const initialState: IState = {
     recommendedWords: null,
     personsRequestedLevelOfSupport: null,
     personsRequestedHintType: null,
-    testLetters: letterTiles,
 }

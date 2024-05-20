@@ -1,4 +1,4 @@
-import { LETTEROWNER } from '../Definitions'
+import { LetterOwner } from '../Definitions'
 import { getPlayerLetters, getRandomInt } from './GetStartingLetters'
 import { mockLetterTestData } from './MockLetterTestData'
 
@@ -24,12 +24,12 @@ describe('getPlayerLetters function', () => {
     test('should assign letters given to players', () => {
         const [availableLetters1, computerLetters] = getPlayerLetters(
             mockLetterTestData,
-            LETTEROWNER.Computer
+            LetterOwner.Computer
         )
 
         const [availableLetters2, personLetters] = getPlayerLetters(
             availableLetters1,
-            LETTEROWNER.Person
+            LetterOwner.Person
         )
 
         expect(availableLetters1.length).toEqual(93)
@@ -39,19 +39,23 @@ describe('getPlayerLetters function', () => {
 
         for (let i = 0; i < computerLetters.length; i++) {
             const availableLetter = computerLetters[i]
-            expect(availableLetter.owner).toEqual(
-                LETTEROWNER.Computer
+            expect(availableLetter.location).toEqual(
+                LetterOwner.Computer
             )
         }
 
         for (let i = 0; i < personLetters.length; i++) {
             const availableLetter = personLetters[i]
-            expect(availableLetter.owner).toEqual(LETTEROWNER.Person)
+            expect(availableLetter.location).toEqual(
+                LetterOwner.Person
+            )
         }
 
         for (let i = 0; i < personLetters.length; i++) {
             const availableLetter = personLetters[i]
-            expect(availableLetter.owner).toEqual(LETTEROWNER.Person)
+            expect(availableLetter.location).toEqual(
+                LetterOwner.Person
+            )
         }
     })
 })

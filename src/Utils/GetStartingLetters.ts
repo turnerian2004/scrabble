@@ -1,4 +1,4 @@
-import { GAMETERMS, LETTEROWNER } from '../Definitions'
+import { GameTerms, LetterOwner } from '../Definitions'
 import { ILetter } from '../Letters/Letters'
 
 export function distributeLettersAtGameStart(
@@ -6,18 +6,18 @@ export function distributeLettersAtGameStart(
 ): [
     availableLetters: ILetter[],
     personLetters: ILetter[],
-    computerLetters: ILetter[]
+    computerLetters: ILetter[],
 ] {
     const availableLetters = [...letters]
 
     const [availableLetters1, computerLetters] = getPlayerLetters(
         availableLetters,
-        LETTEROWNER.Computer
+        LetterOwner.Computer
     )
 
     const [availableLetters2, personLetters] = getPlayerLetters(
         availableLetters1,
-        LETTEROWNER.Person
+        LetterOwner.Person
     )
 
     return [availableLetters2, personLetters, computerLetters]
@@ -29,15 +29,15 @@ export function getRandomInt(max: number): number {
 
 export function getPlayerLetters(
     availableLetters: ILetter[],
-    letterOwner: LETTEROWNER
+    letterOwner: LetterOwner
 ): [availableLetters: ILetter[], playerLetters: ILetter[]] {
     let letters: ILetter[] = [...availableLetters]
     const playerLetters: ILetter[] = []
 
-    for (let i = 0; i < GAMETERMS.MaxNumberLettersPerPlayer; i++) {
+    for (let i = 0; i < GameTerms.MaxNumberLettersPerPlayer; i++) {
         const letterIndex: number = getRandomInt(letters.length)
         const playerLetter: ILetter = { ...letters[letterIndex] }
-        playerLetter.owner = letterOwner
+        playerLetter.location = letterOwner
         playerLetters.push(playerLetter)
 
         // remove letters from letter bag that have been assigned

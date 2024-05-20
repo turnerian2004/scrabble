@@ -3,7 +3,13 @@ import { useDrag, useDrop } from 'react-dnd'
 import { ItemTypes } from '../Constants'
 import { LetterTileProps } from './LetterTile'
 
-export const GameBoardTile: React.FC = () => {
+interface GameBoardTileProps {
+    updateStateFunc: (uniqueIdentifer: string) => void
+}
+
+export const GameBoardTile: React.FC<GameBoardTileProps> = ({
+    updateStateFunc,
+}) => {
     const [droppedItem, setDroppedItem] =
         useState<LetterTileProps | null>(null)
 
@@ -12,6 +18,8 @@ export const GameBoardTile: React.FC = () => {
         drop: (item: LetterTileProps) => {
             if (droppedItem === null) {
                 setDroppedItem(item)
+                console.log('k-town')
+                updateStateFunc(item.uniqueIdentifier)
             }
         },
         collect: (monitor) => ({
@@ -22,8 +30,8 @@ export const GameBoardTile: React.FC = () => {
     const [{ isDragging }, dragRef] = useDrag({
         type: ItemTypes.LETTERTILE,
         item: droppedItem,
-        canDrag: !!droppedItem, // Only allow dragging if there's an item
-        end: () => setDroppedItem(null), // Clear the tile when the item is dragged away
+        canDrag: !!droppedItem,
+        end: () => setDroppedItem(null),
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),

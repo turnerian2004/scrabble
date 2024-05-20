@@ -55,6 +55,16 @@ export const useTurnTimeLimit = (): useTurnTimeLimitType => {
     return { turnTimeLimit }
 }
 
+type useMoveLetterToBoardType = {
+    moveLetterToBoard: (uniqueIdentifer: string) => void
+}
+
+export const useMoveLetterToBoard = (): useMoveLetterToBoardType => {
+    const { moveLetterToBoard } = useContext(ScrabbleContext)
+
+    return { moveLetterToBoard }
+}
+
 type useScrabbleStateType = {
     state: IState
 }
