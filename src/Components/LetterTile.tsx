@@ -5,16 +5,19 @@ import { ItemTypes } from '../Constants'
 export interface LetterTileProps {
     character: string
     pointValue: number
+    uniqueIdentifier: string
+    updateStateFunc: (uniqueIdentifer: string) => void
 }
 
 export const LetterTile: React.FC<LetterTileProps> = ({
     character,
     pointValue,
+    uniqueIdentifier,
 }) => {
     const [{ isDragging }, dragRef] = useDrag(
         () => ({
             type: ItemTypes.LETTERTILE,
-            item: { character, pointValue },
+            item: { character, pointValue, uniqueIdentifier },
             collect: (monitor) => ({
                 isDragging: monitor.isDragging(),
             }),

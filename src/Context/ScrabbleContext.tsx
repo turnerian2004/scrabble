@@ -2,9 +2,10 @@ import { createContext, useReducer } from 'react'
 import { IState, initialState } from './InitialState'
 import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
-import { UserActions } from '../Definitions'
+import { LetterOwner, UserActions } from '../Definitions'
 import { getRecommendedWords } from '../Utils/GetRecommendedWords'
 import { WordEntry } from '../assests/words'
+import { reorganizeLetters } from '../Letters/ReorganizeLetters'
 
 type ActionType = {
     type: UserActions
@@ -55,6 +56,25 @@ function reducer(state: IState, action: ActionType): IState {
                 ...state,
                 turnTimeLimit: turnTimeLimit,
             }
+        }
+
+        case UserActions.MoveLetterToBoard: {
+            const uniqueIdentifier = action.payload as string
+            const personLetters = state.allLetters.person
+
+            const droppedLetter = personLetters.find(
+                (letter) =>
+                    letter.uniqueIdentifier === uniqueIdentifier
+            )
+
+            if (droppedLetter)
+                droppedLetter.location = LetterOwner.Board
+
+            const updatedAllLetters = reorganizeLetters(
+                state.allLetters
+            )
+
+            return { ...state, allLetters: updatedAllLetters }
         }
 
         default:
@@ -118,6 +138,13 @@ const useScrabbleContext = (initialState: IState) => {
         })
     }
 
+    const moveLetterToBoard = (uniqueIdentifier: string) => {
+        dispatch({
+            type: UserActions.MoveLetterToBoard,
+            payload: uniqueIdentifier,
+        })
+    }
+
     return {
         state,
         proceedToOpponentPage,
@@ -125,6 +152,7 @@ const useScrabbleContext = (initialState: IState) => {
         gameTimeLimit,
         turnTimeLimit,
         startGame,
+        moveLetterToBoard,
     }
 }
 
@@ -137,6 +165,7 @@ const initialContextState: UseScrabbleContextType = {
     gameTimeLimit: () => {},
     turnTimeLimit: () => {},
     startGame: () => {},
+    moveLetterToBoard: () => {},
 }
 
 export const ScrabbleContext = createContext<UseScrabbleContextType>(

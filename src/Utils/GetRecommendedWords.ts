@@ -1,4 +1,4 @@
-import { COMPUTERSKILLLEVEL } from '../Definitions'
+import { ComputerSkillLevel } from '../Definitions'
 import { ILetter } from '../Letters/Letters'
 import { WordEntry, allEnglishWords } from '../assests/words'
 import axios from 'axios'
@@ -60,13 +60,13 @@ function sortWordListByDesiredPointValue(
     computerSkillLevel: string
 ): WordEntry[] {
     switch (computerSkillLevel) {
-        case COMPUTERSKILLLEVEL.Easy: {
+        case ComputerSkillLevel.Easy: {
             // words are sorted already from lowest point total to highest
             const easySkillWordList = [...wordList]
             return easySkillWordList
         }
 
-        case COMPUTERSKILLLEVEL.Sensei: {
+        case ComputerSkillLevel.Sensei: {
             // words are sorted from highest point total to lowest
             const senseiWordList = [...wordList].reverse()
             return senseiWordList
