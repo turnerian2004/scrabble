@@ -7,6 +7,7 @@ export enum LetterOwner {
 
 export enum GameTerms {
     MaxNumberLettersPerPlayer = 7,
+    BoardDimension = 15,
 }
 
 export enum ComputerSkillLevel {

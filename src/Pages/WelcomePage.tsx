@@ -46,8 +46,7 @@ export const WelcomePage = () => {
                 {showButton && (
                     <UserButton
                         onClick={handleWelcome}
-                        title={'Start!'}
-                    ></UserButton>
+                        title={'Next Page'}></UserButton>
                 )}
             </div>
         </div>

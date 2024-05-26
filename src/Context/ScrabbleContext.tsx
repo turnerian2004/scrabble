@@ -63,9 +63,12 @@ function reducer(state: IState, action: ActionType): IState {
             const personLetters = state.allLetters.person
 
             const droppedLetter = personLetters.find(
-                (letter) =>
-                    letter.uniqueIdentifier === uniqueIdentifier
+                letter => letter.uniqueIdentifier === uniqueIdentifier
             )
+
+            console.log('sc - uniqueIdentifier: ', uniqueIdentifier)
+            console.log('sc - droppedLetter: ', droppedLetter)
+            console.log('sc - personLetters: ', personLetters)
 
             if (droppedLetter)
                 droppedLetter.location = LetterOwner.Board
@@ -183,8 +186,7 @@ export const ScrabbleProvider = ({
 }: Props): JSX.Element => {
     return (
         <ScrabbleContext.Provider
-            value={useScrabbleContext(initialState)}
-        >
+            value={useScrabbleContext(initialState)}>
             {children}
         </ScrabbleContext.Provider>
     )

@@ -12,15 +12,9 @@ export const UserButton: React.FC<ButtonProps> = ({
 }) => {
     return (
         <Button
-            style={{
-                textTransform: 'none',
-                minWidth: 120,
-                minHeight: 50,
-            }}
             variant="outlined"
             onClick={onClick}
-            className="h-8 w-12"
-        >
+            className="h-12 w-32 normal-case">
             {title}
         </Button>
     )

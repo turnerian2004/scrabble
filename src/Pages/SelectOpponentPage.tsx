@@ -43,29 +43,27 @@ export const VisitorPage = () => {
                     <UserSelectMenu
                         title="Computer Skill Level"
                         options={computerSkillLevel}
-                        onClick={selectComputerSkillLevel}
-                    ></UserSelectMenu>
+                        onClick={
+                            selectComputerSkillLevel
+                        }></UserSelectMenu>
                     {state.computerSkillLevel !== null && (
                         <UserSelectMenu
                             title="Turn Time Limit"
                             options={turnTimeLimitOptions}
-                            onClick={turnTimeLimit}
-                        ></UserSelectMenu>
+                            onClick={turnTimeLimit}></UserSelectMenu>
                     )}
                     {state.turnTimeLimit !== null && (
                         <UserSelectMenu
                             title="Game Time Limit"
                             options={gameTimeLimitOptions}
-                            onClick={gameTimeLimit}
-                        ></UserSelectMenu>
+                            onClick={gameTimeLimit}></UserSelectMenu>
                     )}
                     {state.gameTimeLimit !== null && (
                         <UserButton
                             onClick={() => {
                                 handleClick()
                             }}
-                            title={'Start Game!'}
-                        ></UserButton>
+                            title={'Start'}></UserButton>
                     )}
                 </div>
             </div>
