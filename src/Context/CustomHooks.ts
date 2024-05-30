@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { ScrabbleContext } from './ScrabbleContext'
 import { IState } from './InitialState'
+import { letterDropPayloadProps } from '../Components/GameBoardTile'
 
 type useStartGameType = {
     startGame: () => void
@@ -56,7 +57,9 @@ export const useTurnTimeLimit = (): useTurnTimeLimitType => {
 }
 
 type useMoveLetterToBoardType = {
-    moveLetterToBoard: (uniqueIdentifer: string) => void
+    moveLetterToBoard: (
+        letterDropInfo: letterDropPayloadProps
+    ) => void
 }
 
 export const useMoveLetterToBoard = (): useMoveLetterToBoardType => {

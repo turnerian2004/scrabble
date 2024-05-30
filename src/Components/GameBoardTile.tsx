@@ -5,7 +5,25 @@ import { LetterTileProps } from './LetterTile'
 import { useMoveLetterToBoard } from '../Context/CustomHooks'
 import classNames from 'classnames'
 
-export const GameBoardTile: React.FC = () => {
+export interface letterDropPayloadProps {
+    uniqueIdentifier: string
+    xCoordinate: number
+    yCoordinate: number
+}
+
+export interface GameBoardTileProps {
+    xCoordinate: number
+    yCoordinate: number
+}
+
+export const GameBoardTile: React.FC<GameBoardTileProps> = ({
+    xCoordinate,
+    yCoordinate,
+}) => {
+    const coordinates = {
+        x: xCoordinate,
+        y: yCoordinate,
+    }
     const [droppedItem, setDroppedItem] =
         useState<LetterTileProps | null>(null)
     const { moveLetterToBoard } = useMoveLetterToBoard()
@@ -13,9 +31,16 @@ export const GameBoardTile: React.FC = () => {
     const [{ isOver }, dropRef] = useDrop({
         accept: ItemTypes.LETTERTILE,
         drop: (item: LetterTileProps) => {
+            const letterDropPayload: letterDropPayloadProps = {
+                uniqueIdentifier: item.uniqueIdentifier,
+                xCoordinate: coordinates.x,
+                yCoordinate: coordinates.y,
+            }
+
             if (droppedItem === null) {
+                console.log(item.character)
                 setDroppedItem(item)
-                moveLetterToBoard(item.uniqueIdentifier)
+                moveLetterToBoard(letterDropPayload)
             }
         },
         collect: monitor => ({
@@ -40,7 +65,7 @@ export const GameBoardTile: React.FC = () => {
                     <div className="text-base font-bold capitalize">
                         {droppedItem.character}
                     </div>
-                    <div className="absolute bottom-0 right-0 text-[8px]">
+                    <div className="absolute bottom-0 right-0 text-[6px]">
                         {droppedItem.pointValue}
                     </div>
                 </>
