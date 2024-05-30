@@ -6,10 +6,11 @@ import { LetterOwner, UserActions } from '../Definitions'
 import { getRecommendedWords } from '../Utils/GetRecommendedWords'
 import { WordEntry } from '../assests/words'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
+import { letterDropPayloadProps } from '../Components/GameBoardTile'
 
 type ActionType = {
     type: UserActions
-    payload?: ILetters | string | WordEntry[]
+    payload?: ILetters | string | WordEntry[] | letterDropPayloadProps
 }
 
 function reducer(state: IState, action: ActionType): IState {
@@ -59,19 +60,22 @@ function reducer(state: IState, action: ActionType): IState {
         }
 
         case UserActions.MoveLetterToBoard: {
-            const uniqueIdentifier = action.payload as string
+            const letterDropInfo: letterDropPayloadProps =
+                action.payload as letterDropPayloadProps
+
             const personLetters = state.allLetters.person
 
             const droppedLetter = personLetters.find(
-                letter => letter.uniqueIdentifier === uniqueIdentifier
+                letter =>
+                    letter.uniqueIdentifier ===
+                    letterDropInfo.uniqueIdentifier
             )
 
-            console.log('sc - uniqueIdentifier: ', uniqueIdentifier)
-            console.log('sc - droppedLetter: ', droppedLetter)
-            console.log('sc - personLetters: ', personLetters)
-
-            if (droppedLetter)
+            if (droppedLetter) {
                 droppedLetter.location = LetterOwner.Board
+                droppedLetter.xCoordinate = letterDropInfo.xCoordinate
+                droppedLetter.yCoordinate = letterDropInfo.yCoordinate
+            }
 
             const updatedAllLetters = reorganizeLetters(
                 state.allLetters
@@ -141,10 +145,12 @@ const useScrabbleContext = (initialState: IState) => {
         })
     }
 
-    const moveLetterToBoard = (uniqueIdentifier: string) => {
+    const moveLetterToBoard = (
+        letterDropInfo: letterDropPayloadProps
+    ) => {
         dispatch({
             type: UserActions.MoveLetterToBoard,
-            payload: uniqueIdentifier,
+            payload: letterDropInfo,
         })
     }
 

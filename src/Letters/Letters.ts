@@ -6,6 +6,8 @@ export interface ILetter {
     location: number
     pointValue: number
     uniqueIdentifier: string
+    xCoordinate: number | null
+    yCoordinate: number | null
 }
 
 export interface ILetters {
@@ -51,7 +53,7 @@ export const letterScrabbleAttributes: LetterTuple[] = [
 export function initializeLetterObjects(): ILetter[] {
     const availableStartingLetters: ILetter[] = []
 
-    letterScrabbleAttributes.forEach((letter) => {
+    letterScrabbleAttributes.forEach(letter => {
         const character: string = letter[0]
         const occurrenceFrequency: number = letter[1]
         const pointValue: number = letter[2]
@@ -63,6 +65,8 @@ export function initializeLetterObjects(): ILetter[] {
                 pointValue: pointValue,
                 turnPlacedOnBoard: null,
                 uniqueIdentifier: getUniqueId(),
+                xCoordinate: null,
+                yCoordinate: null,
             }
 
             availableStartingLetters.push(newLetter)
