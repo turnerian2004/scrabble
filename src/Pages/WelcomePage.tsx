@@ -37,19 +37,20 @@ export const WelcomePage = () => {
     return (
         <div className="grid h-screen grid-cols-2 justify-center gap-4">
             <div className="flex items-center justify-center">
-                <GameBoard></GameBoard>
+                <GameBoard />
             </div>
             <div className="flex flex-col items-center justify-center">
-                <IntroCard message={welcomeMessage}></IntroCard>
+                <IntroCard message={welcomeMessage} />
                 {showArrowDownwardIcon && (
                     <div className="animate-bounce">
-                        <ArrowDownwardIcon></ArrowDownwardIcon>
+                        <ArrowDownwardIcon />
                     </div>
                 )}
                 {showButton && (
                     <UserButton
                         onClick={handleWelcome}
-                        title={'Next Page'}></UserButton>
+                        title={'Next Page'}
+                    />
                 )}
             </div>
         </div>

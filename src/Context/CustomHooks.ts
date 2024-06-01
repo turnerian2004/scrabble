@@ -24,6 +24,27 @@ export const useProceedToOpponentPage =
         return { proceedToOpponentPage }
     }
 
+type useSelectHintType = {
+    selectHintType: (hintType: string) => void
+}
+
+export const useSelectHintType = (): useSelectHintType => {
+    const { selectHintType } = useContext(ScrabbleContext)
+
+    return { selectHintType }
+}
+
+type useSelectHintHelpLevelType = {
+    selectHintHelpLevel: (hintHelpLevel: string) => void
+}
+
+export const useSelectHintHelpLevel =
+    (): useSelectHintHelpLevelType => {
+        const { selectHintHelpLevel } = useContext(ScrabbleContext)
+
+        return { selectHintHelpLevel }
+    }
+
 type useSelectComputerSkillLevelType = {
     selectComputerSkillLevel: (computerSkillLevel: string) => void
 }

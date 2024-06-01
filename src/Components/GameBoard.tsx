@@ -2,7 +2,7 @@ import React from 'react'
 import { GameBoardTile } from './GameBoardTile'
 import { GameTerms, alphabet } from '../Definitions'
 
-export const GameBoard: React.FC = () => {
+function buildBoard(): React.ReactNode[] {
     const board: React.ReactNode[] = []
 
     board.push(<div></div>)
@@ -41,7 +41,11 @@ export const GameBoard: React.FC = () => {
         }
     }
 
-    console.log('board: ', board)
+    return board
+}
+
+export const GameBoard: React.FC = () => {
+    const board: React.ReactNode[] = buildBoard()
 
     return (
         <div className="grid w-[500px] grid-cols-16 items-center justify-around gap-1 rounded-md bg-pink-400 p-2">

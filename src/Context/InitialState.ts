@@ -14,6 +14,8 @@ export interface IState {
     recommendedWords: WordEntry[] | null
     personsRequestedLevelOfSupport: null | string
     personsRequestedHintType: null | string
+    personScore: number
+    computerScore: number
 }
 
 export const initialLetters: ILetters = {
@@ -35,4 +37,6 @@ export const initialState: IState = {
     recommendedWords: null,
     personsRequestedLevelOfSupport: null,
     personsRequestedHintType: null,
+    personScore: 0,
+    computerScore: 0,
 }

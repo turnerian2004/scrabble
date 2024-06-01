@@ -68,7 +68,7 @@ export const gameTimeLimitOptions: string[] = [
     '50',
 ]
 
-export const hintLevel: string[] = [
+export const hintHelpLevel: string[] = [
     'Optimal Pick',
     'Least Favorable',
     'Moderate Scoring',

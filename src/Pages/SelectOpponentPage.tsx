@@ -40,33 +40,35 @@ export const VisitorPage = () => {
         <>
             <div className="grid h-screen grid-cols-2 justify-center gap-4">
                 <div className="flex items-center justify-center">
-                    <GameBoard></GameBoard>
+                    <GameBoard />
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <UserSelectMenu
                         title="Computer Skill Level"
                         options={computerSkillLevel}
-                        onClick={
-                            selectComputerSkillLevel
-                        }></UserSelectMenu>
+                        onClick={selectComputerSkillLevel}
+                    />
                     {state.computerSkillLevel !== null && (
                         <UserSelectMenu
                             title="Turn Time Limit"
                             options={turnTimeLimitOptions}
-                            onClick={turnTimeLimit}></UserSelectMenu>
+                            onClick={turnTimeLimit}
+                        />
                     )}
                     {state.turnTimeLimit !== null && (
                         <UserSelectMenu
                             title="Game Time Limit"
                             options={gameTimeLimitOptions}
-                            onClick={gameTimeLimit}></UserSelectMenu>
+                            onClick={gameTimeLimit}
+                        />
                     )}
                     {state.gameTimeLimit !== null && (
                         <UserButton
                             onClick={() => {
                                 handleClick()
                             }}
-                            title={'Start'}></UserButton>
+                            title={'Start'}
+                        />
                     )}
                 </div>
             </div>

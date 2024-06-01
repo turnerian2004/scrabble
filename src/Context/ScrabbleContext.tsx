@@ -41,6 +41,24 @@ function reducer(state: IState, action: ActionType): IState {
             }
         }
 
+        case UserActions.HintTypeRequested: {
+            const hintTypeRequested = action.payload as string
+
+            return {
+                ...state,
+                personsRequestedHintType: hintTypeRequested,
+            }
+        }
+
+        case UserActions.LevelSupportRequested: {
+            const levelSupportRequested = action.payload as string
+
+            return {
+                ...state,
+                personsRequestedLevelOfSupport: levelSupportRequested,
+            }
+        }
+
         case UserActions.GameTimeLimit: {
             const gameTimeLimit = action.payload as string
 
@@ -124,10 +142,24 @@ const useScrabbleContext = (initialState: IState) => {
         })
     }
 
+    const selectHintHelpLevel = (levelSupportRequested: string) => {
+        dispatch({
+            type: UserActions.LevelSupportRequested,
+            payload: levelSupportRequested,
+        })
+    }
+
     const selectComputerSkillLevel = (computerSkillLevel: string) => {
         dispatch({
             type: UserActions.SelectComputerSkillLevel,
             payload: computerSkillLevel,
+        })
+    }
+
+    const selectHintType = (hintTypeRequested: string) => {
+        dispatch({
+            type: UserActions.HintTypeRequested,
+            payload: hintTypeRequested,
         })
     }
 
@@ -162,6 +194,8 @@ const useScrabbleContext = (initialState: IState) => {
         turnTimeLimit,
         startGame,
         moveLetterToBoard,
+        selectHintHelpLevel,
+        selectHintType,
     }
 }
 
@@ -175,6 +209,8 @@ const initialContextState: UseScrabbleContextType = {
     turnTimeLimit: () => {},
     startGame: () => {},
     moveLetterToBoard: () => {},
+    selectHintHelpLevel: () => {},
+    selectHintType: () => {},
 }
 
 export const ScrabbleContext = createContext<UseScrabbleContextType>(

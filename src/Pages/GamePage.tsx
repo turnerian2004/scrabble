@@ -1,23 +1,51 @@
 import { useContext } from 'react'
-import { LetterTile } from '../Components/LetterTile'
 import { ScrabbleContext } from '../Context/ScrabbleContext'
 import { GameBoard } from '../Components/GameBoard'
+import { LetterTilesDisplay } from '../Components/LetterTilesDisplay'
+import { UserSelectMenu } from '../Components/UserSelectMenu'
+import { hintHelpLevel, wordHintType } from '../Definitions'
+import {
+    useSelectHintHelpLevel,
+    useSelectHintType,
+} from '../Context/CustomHooks'
+import { ScoreDisplay } from '../Components/ScoreDisplay'
 
 export const GamePage = () => {
     const { state } = useContext(ScrabbleContext)
     const personLetters = state.allLetters.person
-
-    console.log('gamepage: ', personLetters)
+    const { selectHintHelpLevel } = useSelectHintHelpLevel()
+    const { selectHintType } = useSelectHintType()
 
     return (
         <div className="grid h-screen grid-cols-2 justify-center gap-4">
             <div>
-                {personLetters.map((letter, index) => (
-                    <LetterTile {...letter} key={index} />
-                ))}
+                <GameBoard />
+                <LetterTilesDisplay letterTiles={personLetters} />
             </div>
-            <div>
-                <GameBoard></GameBoard>
+            <div className="grid w-full grid-rows-3">
+                <div className="flex w-full justify-around">
+                    <UserSelectMenu
+                        title="Level of Support"
+                        options={hintHelpLevel}
+                        onClick={selectHintHelpLevel}
+                    />
+                    <UserSelectMenu
+                        title="Hint Type"
+                        options={wordHintType}
+                        onClick={selectHintType}
+                    />
+                </div>
+                <div></div>
+                <div className="flex w-full justify-around">
+                    <ScoreDisplay
+                        playerScore={
+                            state.personScore
+                        }></ScoreDisplay>
+                    <ScoreDisplay
+                        playerScore={
+                            state.computerScore
+                        }></ScoreDisplay>
+                </div>
             </div>
         </div>
     )
