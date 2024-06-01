@@ -9,7 +9,9 @@ export const GameBoard: React.FC = () => {
 
     for (let i = 0; i < alphabet.length; i++) {
         board.push(
-            <div key={i} className="flex items-center justify-center">
+            <div
+                key={i}
+                className="flex items-center justify-center uppercase">
                 {alphabet[i]}
             </div>
         )
@@ -19,7 +21,7 @@ export const GameBoard: React.FC = () => {
         for (let x = 0; x < GameTerms.BoardDimension; x++) {
             if (x !== 0) {
                 board.push(
-                    <div className="flex items-center justify-center">
+                    <div className="h-6.5 w-6.5 flex items-center justify-center gap-3">
                         <GameBoardTile
                             key={`${x}-${y}`}
                             xCoordinate={x}
@@ -42,7 +44,7 @@ export const GameBoard: React.FC = () => {
     console.log('board: ', board)
 
     return (
-        <div className="grid-cols-16 grid w-[420px] items-center justify-around gap-1 rounded-md bg-pink-400 p-2">
+        <div className="grid w-[500px] grid-cols-16 items-center justify-around gap-1 rounded-md bg-pink-400 p-2">
             {board}
         </div>
     )

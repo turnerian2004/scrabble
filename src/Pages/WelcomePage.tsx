@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { UserButton } from '../Components/UserButton'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { useEffect, useState } from 'react'
+import { GameBoard } from '../Components/GameBoard'
 
 export const WelcomePage = () => {
     const [showButton, setShowButton] = useState(false)
@@ -35,7 +36,9 @@ export const WelcomePage = () => {
 
     return (
         <div className="grid h-screen grid-cols-2 justify-center gap-4">
-            <div></div>
+            <div className="flex items-center justify-center">
+                <GameBoard></GameBoard>
+            </div>
             <div className="flex flex-col items-center justify-center">
                 <IntroCard message={welcomeMessage}></IntroCard>
                 {showArrowDownwardIcon && (

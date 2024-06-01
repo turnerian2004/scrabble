@@ -14,6 +14,7 @@ import {
 import { UserButton } from '../Components/UserButton'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { GameBoard } from '../Components/GameBoard'
 
 export const VisitorPage = () => {
     const { selectComputerSkillLevel } = useSelectComputerSkillLevel()
@@ -38,7 +39,9 @@ export const VisitorPage = () => {
     return (
         <>
             <div className="grid h-screen grid-cols-2 justify-center gap-4">
-                <div>Vistor Page</div>
+                <div className="flex items-center justify-center">
+                    <GameBoard></GameBoard>
+                </div>
                 <div className="flex flex-col items-center justify-center">
                     <UserSelectMenu
                         title="Computer Skill Level"
