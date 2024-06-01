@@ -7,7 +7,7 @@ export enum LetterOwner {
 
 export enum GameTerms {
     MaxNumberLettersPerPlayer = 7,
-    BoardDimension = 15,
+    BoardDimension = 16,
 }
 
 export enum ComputerSkillLevel {
@@ -26,6 +26,24 @@ export enum UserActions {
     TurnTimeLimit = 'Turn Time Limit',
     MoveLetterToBoard = 'Move Letter to Board',
 }
+
+export const alphabet: string[] = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+]
 
 export const computerSkillLevel: string[] = [
     'Easy',
