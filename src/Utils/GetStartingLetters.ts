@@ -31,6 +31,7 @@ export function getPlayerLetters(
     availableLetters: ILetter[],
     letterOwner: LetterOwner
 ): [availableLetters: ILetter[], playerLetters: ILetter[]] {
+    // assigns players their letters after they have placed letters on the board
     let letters: ILetter[] = [...availableLetters]
     const playerLetters: ILetter[] = []
 
@@ -42,7 +43,7 @@ export function getPlayerLetters(
 
         // remove letters from letter bag that have been assigned
         letters = letters.filter(
-            (letter) =>
+            letter =>
                 letter.uniqueIdentifier !==
                 playerLetter.uniqueIdentifier
         )

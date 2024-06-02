@@ -4,7 +4,7 @@ import { GameTerms, alphabet } from '../Definitions'
 export function buildBoard(): React.ReactNode[] {
     const board: React.ReactNode[] = []
 
-    board.push(<div></div>)
+    board.push(<div key={-1}></div>)
 
     for (let i = 0; i < alphabet.length; i++) {
         board.push(
@@ -20,9 +20,10 @@ export function buildBoard(): React.ReactNode[] {
         for (let x = 0; x < GameTerms.BoardDimension; x++) {
             if (x !== 0) {
                 board.push(
-                    <div className="h-6.5 w-6.5 flex items-center justify-center gap-3">
+                    <div
+                        className="h-6.5 w-6.5 flex items-center justify-center gap-3"
+                        key={`${x}-${y}`}>
                         <GameBoardTile
-                            key={`${x}-${y}`}
                             xCoordinate={x}
                             yCoordinate={y}
                         />
@@ -32,7 +33,9 @@ export function buildBoard(): React.ReactNode[] {
 
             if (x === 0) {
                 board.push(
-                    <div className="flex items-center justify-center text-center">
+                    <div
+                        className="flex items-center justify-center text-center"
+                        key={`${x}-${y}`}>
                         {y}
                     </div>
                 )

@@ -2,7 +2,11 @@ import { createContext, useReducer } from 'react'
 import { IState, initialState } from './InitialState'
 import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
-import { LetterOwner, UserActions } from '../Definitions'
+import {
+    LetterOwner,
+    UserActions,
+    freeDictionaryApiResponse,
+} from '../Definitions'
 import { getRecommendedWords } from '../Utils/GetRecommendedWords'
 import { WordEntry } from '../assests/words'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
@@ -10,16 +14,29 @@ import { letterDropPayloadProps } from '../Components/GameBoardTile'
 
 type ActionType = {
     type: UserActions
-    payload?: ILetters | string | WordEntry[] | letterDropPayloadProps
+    payload?:
+        | ILetters
+        | string
+        | WordEntry[]
+        | letterDropPayloadProps
+        | freeDictionaryApiResponse
 }
 
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.StartGame: {
-            const wordEntries = action.payload as WordEntry[]
-            console.log('wordEntries: ', wordEntries)
+            const computerStartingWord = action.payload as string
 
-            return { ...state }
+            console.log(
+                'computerStartingWord: ',
+                computerStartingWord
+            )
+
+            return {
+                ...state,
+                hasGameStarted: true,
+                computerRecommendedWord: computerStartingWord,
+            }
         }
 
         case UserActions.ProceedToOpponentSelectPage: {
@@ -113,15 +130,18 @@ const useScrabbleContext = (initialState: IState) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log('state: ', state)
 
-    const startGame = () => {
-        const computerWords = getRecommendedWords(
-            state.allLetters.computer,
-            state.computerSkillLevel as string
-        )
+    const startGame = async () => {
+        const computerStartingWord: freeDictionaryApiResponse =
+            await getRecommendedWords(
+                state.allLetters.computer,
+                state.computerSkillLevel as string
+            )
+
+        const cleanComputerStartingWord = computerStartingWord.word
 
         dispatch({
             type: UserActions.StartGame,
-            payload: computerWords,
+            payload: cleanComputerStartingWord,
         })
     }
 
@@ -207,7 +227,7 @@ const initialContextState: UseScrabbleContextType = {
     selectComputerSkillLevel: () => {},
     gameTimeLimit: () => {},
     turnTimeLimit: () => {},
-    startGame: () => {},
+    startGame: async () => {},
     moveLetterToBoard: () => {},
     selectHintHelpLevel: () => {},
     selectHintType: () => {},

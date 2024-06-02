@@ -3,14 +3,14 @@ import { ILetter } from '../Letters/Letters'
 import { WordEntry, allEnglishWords } from '../assests/words'
 import axios from 'axios'
 
-export function getRecommendedWords(
+export async function getRecommendedWords(
     letters: ILetter[],
     computerSkillLevel: string
 ) {
     const playerLetters: ILetter[] = [...letters]
 
     const letterCharacters = playerLetters.map(
-        (computerLetter) => computerLetter.character
+        computerLetter => computerLetter.character
     )
 
     const allLetterCombinations =
@@ -25,13 +25,14 @@ export function getRecommendedWords(
         computerSkillLevel
     )
 
-    const wordDefinition = getWordDefition(sortedBySkillLevelWords)
-    console.log(wordDefinition)
+    const wordDefinition = getWordDefinition(sortedBySkillLevelWords)
 
-    return sortedBySkillLevelWords
+    return wordDefinition
 }
 
-async function getWordDefition(sortedBySkillLevelWords: WordEntry[]) {
+async function getWordDefinition(
+    sortedBySkillLevelWords: WordEntry[]
+) {
     let isValidWord = false
 
     for (
@@ -47,6 +48,7 @@ async function getWordDefition(sortedBySkillLevelWords: WordEntry[]) {
             )
 
             const wordDefinition = response.data[0]
+
             isValidWord = true
             return wordDefinition
         } catch (error) {
@@ -112,7 +114,7 @@ function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
     // remove all letter combinations that are not valid words
     const allValidWords: WordEntry[] = []
 
-    allLetterCombinations.forEach((letterCombination) => {
+    allLetterCombinations.forEach(letterCombination => {
         const firstLetter = letterCombination[0]
 
         if (
@@ -125,7 +127,7 @@ function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
                 allEnglishWords[firstLetter][letterCombination.length]
 
             const matchingWord = words.find(
-                (word) => word.word === letterCombination
+                word => word.word === letterCombination
             )
 
             if (matchingWord && matchingWord.word.length > 1) {

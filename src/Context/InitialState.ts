@@ -1,5 +1,4 @@
 import React from 'react'
-import { freeDictionaryApiResponse } from '../Definitions'
 import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
 import { buildBoard } from '../Utils/initBoard'
@@ -9,13 +8,13 @@ export interface IState {
     isGameOver: boolean
     hasGameStarted: boolean
     proceedToOpponentSelectPage: boolean
-    computerSkillLevel: string | null
-    gameTimeLimit: string | null
-    turnTimeLimit: string | null
-    bestRecommendedWord: freeDictionaryApiResponse | null
+    computerSkillLevel: string
+    gameTimeLimit: string
+    turnTimeLimit: string
+    computerRecommendedWord: string
     recommendedWords: WordEntry[] | null
-    personsRequestedLevelOfSupport: null | string
-    personsRequestedHintType: null | string
+    personsRequestedLevelOfSupport: string
+    personsRequestedHintType: string
     personScore: number
     computerScore: number
     board: React.ReactNode[]
@@ -33,13 +32,13 @@ export const initialState: IState = {
     isGameOver: false,
     hasGameStarted: false,
     proceedToOpponentSelectPage: false,
-    computerSkillLevel: null,
-    gameTimeLimit: null,
-    turnTimeLimit: null,
-    bestRecommendedWord: null,
+    computerSkillLevel: '',
+    gameTimeLimit: '',
+    turnTimeLimit: '',
+    computerRecommendedWord: '',
     recommendedWords: null,
-    personsRequestedLevelOfSupport: null,
-    personsRequestedHintType: null,
+    personsRequestedLevelOfSupport: '',
+    personsRequestedHintType: '',
     personScore: 0,
     computerScore: 0,
     board: buildBoard(),
