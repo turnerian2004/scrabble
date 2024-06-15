@@ -1,7 +1,8 @@
 import React from 'react'
 import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
-import { buildBoard } from '../Utils/initBoard'
+// import { buildBoard } from '../Utils/initBoard'
+import { buildBoard } from '../Utils/initializeBoard'
 
 export interface IState {
     allLetters: ILetters

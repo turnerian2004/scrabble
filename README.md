@@ -8,3 +8,5 @@
 # Motivation
 
 I kept losing to the computer while playing this [version](https://playscrabble.com/play/ai), so I built my own.
+
+console.log
