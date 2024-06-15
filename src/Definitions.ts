@@ -26,8 +26,25 @@ export enum UserActions {
     TurnTimeLimit = 'Turn Time Limit',
     MoveLetterToBoard = 'Move Letter to Board',
 }
-
+export const yCoordinates: string[] = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+]
 export const alphabet: string[] = [
+    '',
     'a',
     'b',
     'c',
