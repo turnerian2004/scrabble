@@ -8,7 +8,7 @@ import {
     freeDictionaryApiResponse,
 } from '../Definitions'
 import { getRecommendedWords } from '../Utils/GetRecommendedWords'
-import { WordEntry } from '../assests/words'
+import { WordEntry, allEnglishWords } from '../assests/words'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
 import { letterDropPayloadProps } from '../Components/GameBoardTile'
 
@@ -25,17 +25,20 @@ type ActionType = {
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.StartGame: {
-            const computerStartingWord = action.payload as string
-
-            console.log(
-                'computerStartingWord: ',
-                computerStartingWord
-            )
+            const computerStartingWord =
+                action.payload as freeDictionaryApiResponse
+            const recommendedWord = computerStartingWord.word
+            const firstLetter = recommendedWord[0]
+            const words =
+                allEnglishWords[firstLetter][recommendedWord.length]
+            const matchingWord = words.find(
+                word => word.word === recommendedWord
+            )!
 
             return {
                 ...state,
                 hasGameStarted: true,
-                computerRecommendedWord: computerStartingWord,
+                computerRecommendedWord: matchingWord,
             }
         }
 
@@ -137,7 +140,7 @@ const useScrabbleContext = (initialState: IState) => {
                 state.computerSkillLevel as string
             )
 
-        const cleanComputerStartingWord = computerStartingWord.word
+        const cleanComputerStartingWord = computerStartingWord
 
         dispatch({
             type: UserActions.StartGame,
