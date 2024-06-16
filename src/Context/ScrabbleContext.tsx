@@ -35,6 +35,10 @@ function reducer(state: IState, action: ActionType): IState {
                 word => word.word === recommendedWord
             )!
 
+            const computerLetters = state.allLetters.computer
+            // todo: assign letters in computerLetters that appear in recommendedWord to have value board
+            // update board to have these letters
+
             return {
                 ...state,
                 hasGameStarted: true,
