@@ -1,8 +1,7 @@
 import React from 'react'
 import { ILetters, initializeLetterObjects } from '../Letters/Letters'
 import { WordEntry } from '../assests/words'
-// import { buildBoard } from '../Utils/initBoard'
-import { buildBoard } from '../Utils/initializeBoard'
+import { initializeBoard } from '../Helpers/InitializeBoard'
 
 export interface IState {
     allLetters: ILetters
@@ -12,7 +11,7 @@ export interface IState {
     computerSkillLevel: string
     gameTimeLimit: string
     turnTimeLimit: string
-    computerRecommendedWord: string
+    computerRecommendedWord: WordEntry | null
     recommendedWords: WordEntry[] | null
     personsRequestedLevelOfSupport: string
     personsRequestedHintType: string
@@ -36,11 +35,11 @@ export const initialState: IState = {
     computerSkillLevel: '',
     gameTimeLimit: '',
     turnTimeLimit: '',
-    computerRecommendedWord: '',
+    computerRecommendedWord: null,
     recommendedWords: null,
     personsRequestedLevelOfSupport: '',
     personsRequestedHintType: '',
     personScore: 0,
     computerScore: 0,
-    board: buildBoard(),
+    board: initializeBoard(),
 }

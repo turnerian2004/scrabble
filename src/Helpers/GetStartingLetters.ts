@@ -36,6 +36,7 @@ export function getPlayerLetters(
     const playerLetters: ILetter[] = []
 
     for (let i = 0; i < GameTerms.MaxNumberLettersPerPlayer; i++) {
+        // to do: make 2nd for loop condition - availableLetters.length > 0
         const letterIndex: number = getRandomInt(letters.length)
         const playerLetter: ILetter = { ...letters[letterIndex] }
         playerLetter.location = letterOwner

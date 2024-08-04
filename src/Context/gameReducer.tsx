@@ -1,16 +1,21 @@
 import { createContext, useReducer } from 'react'
 import { IState, initialState } from './InitialState'
-import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
+import { distributeLettersAtGameStart } from '../Helpers/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
 import {
     LetterOwner,
     UserActions,
     freeDictionaryApiResponse,
 } from '../Definitions'
-import { getRecommendedWords } from '../Utils/GetRecommendedWords'
-import { WordEntry } from '../assests/words'
+import { getRecommendedWords } from '../Helpers/GetRecommendedWords'
+import { WordEntry, allEnglishWords } from '../assests/words'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
 import { letterDropPayloadProps } from '../Components/GameBoardTile'
+import {
+    identifyLettersPlacedOnBoard,
+    removeUsedLetters,
+} from '../Helpers/StartGame'
+import { updateBoard } from '../Helpers/InitializeBoard'
 
 type ActionType = {
     type: UserActions
@@ -25,22 +30,73 @@ type ActionType = {
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.StartGame: {
-            const computerStartingWord = action.payload as string
+            const computerStartingWordApiResponse =
+                action.payload as freeDictionaryApiResponse
+            const recommendedWord =
+                computerStartingWordApiResponse.word
+            const firstLetter = recommendedWord[0]
+            const words =
+                allEnglishWords[firstLetter][recommendedWord.length]
+            const computerStartingWordWithPointTotal = words.find(
+                word => word.word === recommendedWord
+            )!
 
-            console.log(
-                'computerStartingWord: ',
-                computerStartingWord
+            const computerLettersPlacedOnBoard =
+                identifyLettersPlacedOnBoard(
+                    state.allLetters.computer,
+                    recommendedWord
+                )
+
+            const updatedLetterBag = removeUsedLetters(
+                state.allLetters.available,
+                computerLettersPlacedOnBoard
             )
+
+            console.log('a1: ', computerLettersPlacedOnBoard)
+            console.log('b2: ', updatedLetterBag)
+            console.log('c3: ', state.allLetters.person)
+            console.log('d4: ', state.allLetters.board)
+            console.log('e5: ', state.allLetters.available)
+
+            // To do:
+            // 1. check all letters in updatedLetterBag are not in computerLettersPlacedOnBoard
+            // 2. assign x # new letters to computer -> compensates for letters placed on board
+            // 3. update allLetters in return statement -> only person's letters will not be changed
+            // 4. update board
+            // 5. write tests
+
+            // how to update the board
+            // const newBoardLetters = state.allLetters.computer
+            // newBoardLetters[0].location = LetterOwner.Board
+            // newBoardLetters[0].xCoordinate = 2
+            // newBoardLetters[0].yCoordinate = 2
+            // newBoardLetters[1].location = LetterOwner.Board
+            // newBoardLetters[1].xCoordinate = 3
+            // newBoardLetters[1].yCoordinate = 3
+            // newBoardLetters[1].character = 'b7'
+            // const newLetters = state.allLetters
+            // newLetters.board = newBoardLetters
+            // const newBoard = updateBoard(newBoardLetters)
+
+            // inititlize letters with enums for x/y coordinates & characters
 
             return {
                 ...state,
                 hasGameStarted: true,
-                computerRecommendedWord: computerStartingWord,
+                computerRecommendedWord:
+                    computerStartingWordWithPointTotal,
+                // allLetters: newLetters,
+                // board: newBoard,
             }
         }
 
         case UserActions.ProceedToOpponentSelectPage: {
             const assignLettersOwners = action.payload as ILetters
+
+            console.log('ProceedToOpponentSelectPage')
+            console.log(state.board)
+            console.log(state.board[0])
+            console.log('ProceedToOpponentSelectPage')
 
             return {
                 ...state,
@@ -137,7 +193,7 @@ const useScrabbleContext = (initialState: IState) => {
                 state.computerSkillLevel as string
             )
 
-        const cleanComputerStartingWord = computerStartingWord.word
+        const cleanComputerStartingWord = computerStartingWord
 
         dispatch({
             type: UserActions.StartGame,
