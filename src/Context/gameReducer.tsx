@@ -1,16 +1,24 @@
 import { createContext, useReducer } from 'react'
 import { IState, initialState } from './InitialState'
-import { distributeLettersAtGameStart } from '../Utils/GetStartingLetters'
+import {
+    assignPlayerLetters,
+    distributeLettersAtGameStart,
+} from '../Helpers/GetStartingLetters'
 import { ILetter, ILetters } from '../Letters/Letters'
 import {
+    ComputerSkillLevel,
     LetterOwner,
     UserActions,
     freeDictionaryApiResponse,
 } from '../Definitions'
-import { getRecommendedWords } from '../Utils/GetRecommendedWords'
-import { WordEntry } from '../assests/words'
+import { getRecommendedWords } from '../Helpers/GetRecommendedWords'
+import { WordEntry, allEnglishWords } from '../assests/words'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
 import { letterDropPayloadProps } from '../Components/GameBoardTile'
+import {
+    identifyLettersPlacedOnBoard,
+    removeUsedLetters,
+} from '../Helpers/StartGame'
 
 type ActionType = {
     type: UserActions
@@ -25,17 +33,78 @@ type ActionType = {
 function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.StartGame: {
-            const computerStartingWord = action.payload as string
+            const computerStartingWordApiResponse =
+                action.payload as freeDictionaryApiResponse
+            const recommendedWord =
+                computerStartingWordApiResponse.word
+            const recommendedWordFirstLetter = recommendedWord[0]
+            const words =
+                allEnglishWords[recommendedWordFirstLetter][
+                    recommendedWord.length
+                ]
+            const computerStartingWordWithPointTotal = words.find(
+                word => word.word === recommendedWord
+            )!
+
+            const computerLettersPlacedOnBoard =
+                identifyLettersPlacedOnBoard(
+                    state.allLetters.computer,
+                    recommendedWord
+                )
+
+            const currentAvailableLetters = state.allLetters.available
+
+            const updatedAvailableLetterBag = removeUsedLetters(
+                currentAvailableLetters,
+                computerLettersPlacedOnBoard
+            )
+
+            const [, computerReplacementLetters] =
+                assignPlayerLetters(
+                    updatedAvailableLetterBag,
+                    LetterOwner.Person,
+                    recommendedWord.length
+                )
+
+            const updatedComputerLetters = removeUsedLetters(
+                computerLettersPlacedOnBoard,
+                state.allLetters.computer
+            )
 
             console.log(
-                'computerStartingWord: ',
-                computerStartingWord
+                'computerReplacementLetters: ',
+                computerReplacementLetters
             )
+            console.log(
+                'updatedComputerLetters: ',
+                updatedComputerLetters
+            )
+
+            // To do:
+            // 1. check all letters in updatedLetterBag are not in computerLettersPlacedOnBoard
+            // 2. assign x # new letters to computer -> compensates for letters placed on board
+            // 3. update allLetters in return statement -> only person's letters will not be changed
+            // 4. update board
+            // 5. write tests
+
+            // how to update the board
+            // const newBoardLetters = state.allLetters.computer
+            // newBoardLetters[0].location = LetterOwner.Board
+            // newBoardLetters[0].xCoordinate = 2
+            // newBoardLetters[0].yCoordinate = 2
+            // newBoardLetters[1].location = LetterOwner.Board
+            // newBoardLetters[1].xCoordinate = 3
+            // newBoardLetters[1].yCoordinate = 3
+            // newBoardLetters[1].character = 'b7'
+            // const newLetters = state.allLetters
+            // newLetters.board = newBoardLetters
+            // const newBoard = updateBoard(newBoardLetters)
 
             return {
                 ...state,
                 hasGameStarted: true,
-                computerRecommendedWord: computerStartingWord,
+                computerRecommendedWord:
+                    computerStartingWordWithPointTotal,
             }
         }
 
@@ -134,10 +203,10 @@ const useScrabbleContext = (initialState: IState) => {
         const computerStartingWord: freeDictionaryApiResponse =
             await getRecommendedWords(
                 state.allLetters.computer,
-                state.computerSkillLevel as string
+                state.computerSkillLevel as ComputerSkillLevel
             )
 
-        const cleanComputerStartingWord = computerStartingWord.word
+        const cleanComputerStartingWord = computerStartingWord
 
         dispatch({
             type: UserActions.StartGame,

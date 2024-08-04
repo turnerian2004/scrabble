@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export async function getRecommendedWords(
     letters: ILetter[],
-    computerSkillLevel: string
+    computerSkillLevel: ComputerSkillLevel
 ) {
     const playerLetters: ILetter[] = [...letters]
 
@@ -22,7 +22,7 @@ export async function getRecommendedWords(
 
     const sortedBySkillLevelWords = sortWordListByDesiredPointValue(
         allWordCombinations,
-        computerSkillLevel
+        computerSkillLevel as ComputerSkillLevel
     )
 
     const wordDefinition = getWordDefinition(sortedBySkillLevelWords)
@@ -57,9 +57,9 @@ async function getWordDefinition(
     }
 }
 
-function sortWordListByDesiredPointValue(
+export function sortWordListByDesiredPointValue(
     wordList: WordEntry[],
-    computerSkillLevel: string
+    computerSkillLevel: ComputerSkillLevel
 ): WordEntry[] {
     switch (computerSkillLevel) {
         case ComputerSkillLevel.Easy: {
@@ -81,42 +81,34 @@ function sortWordListByDesiredPointValue(
     }
 }
 
-function mediumSkilllLevel(arr: WordEntry[]) {
-    // sample input: [a, b, c, d, e, f, g]
-    // sample output: [d, e, c, f, b, g, a]
-    // the words with points in the middle are returned at the front of the array
-    const midPoint: number = Math.round(arr.length / 2)
-    let firstHalfCounter = midPoint - 1
-    let secondHalfCounter = midPoint
-    const newArray: WordEntry[] = []
+export function mediumSkilllLevel(arr: WordEntry[]): WordEntry[] {
+    const temp = [...arr]
+    const result: WordEntry[] = []
 
-    for (let i = 0; i < midPoint; i++) {
-        if (firstHalfCounter >= 0 && firstHalfCounter < arr.length) {
-            const word1: WordEntry = arr[firstHalfCounter]
-            newArray.push(word1)
-        }
-        if (
-            secondHalfCounter >= 0 &&
-            secondHalfCounter < arr.length
-        ) {
-            const word2: WordEntry = arr[secondHalfCounter]
-            newArray.push(word2)
-        }
+    while (temp.length > 0) {
+        const midPoint =
+            temp.length % 2 === 0
+                ? Math.floor(temp.length / 2) - 1
+                : Math.floor(temp.length / 2)
+        const value = temp[midPoint]
 
-        firstHalfCounter--
-        secondHalfCounter++
+        result.push(value)
+        temp.splice(midPoint, 1)
     }
 
-    return newArray
+    return result
 }
 
-function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
+export function cleanWordList(
+    allLetterCombinations: string[]
+): WordEntry[] {
     // remove all letter combinations that are not valid words
     const allValidWords: WordEntry[] = []
 
     allLetterCombinations.forEach(letterCombination => {
         const firstLetter = letterCombination[0]
 
+        /* istanbul ignore else*/
         if (
             allEnglishWords[firstLetter] !== undefined ||
             allEnglishWords[firstLetter][letterCombination.length] !==
@@ -139,7 +131,7 @@ function cleanWordList(allLetterCombinations: string[]): WordEntry[] {
     return allValidWords
 }
 
-function getAllPossibleLetterCombinations(
+export function getAllPossibleLetterCombinations(
     letters: string[]
 ): string[] {
     // generate all letter combinations from player's letter set

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ScrabbleContext } from '../Context/ScrabbleContext'
+import { ScrabbleContext } from '../Context/gameReducer'
 import { GameBoard } from '../Components/GameBoard'
 import { LetterTilesDisplay } from '../Components/LetterTilesDisplay'
 import { UserSelectMenu } from '../Components/UserSelectMenu'
@@ -37,14 +37,8 @@ export const GamePage = () => {
                 </div>
                 <div></div>
                 <div className="flex w-full justify-around">
-                    <ScoreDisplay
-                        playerScore={
-                            state.personScore
-                        }></ScoreDisplay>
-                    <ScoreDisplay
-                        playerScore={
-                            state.computerScore
-                        }></ScoreDisplay>
+                    <ScoreDisplay playerScore={state.personScore} />
+                    <ScoreDisplay playerScore={state.computerScore} />
                 </div>
             </div>
         </div>

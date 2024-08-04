@@ -1,4 +1,5 @@
 export enum LetterOwner {
+    // To do: rename available -> letterbag
     Available,
     Person,
     Computer,
@@ -16,6 +17,24 @@ export enum ComputerSkillLevel {
     Sensei = 'Sensei',
 }
 
+export enum LetterNumericValues {
+    A = 1,
+    B = 2,
+    C = 3,
+    D = 4,
+    E = 5,
+    F = 6,
+    G = 7,
+    H = 8,
+    I = 9,
+    J = 10,
+    K = 11,
+    L = 12,
+    M = 13,
+    N = 14,
+    O = 15,
+}
+
 export enum UserActions {
     ProceedToOpponentSelectPage = 'Proceed To Opponent Select Page',
     StartGame = 'Start Game',
@@ -26,6 +45,7 @@ export enum UserActions {
     TurnTimeLimit = 'Turn Time Limit',
     MoveLetterToBoard = 'Move Letter to Board',
 }
+
 export const yCoordinates: string[] = [
     '1',
     '2',
@@ -43,6 +63,7 @@ export const yCoordinates: string[] = [
     '14',
     '15',
 ]
+
 export const alphabet: string[] = [
     '',
     'a',

@@ -14,11 +14,13 @@ export interface letterDropPayloadProps {
 export interface GameBoardTileProps {
     xCoordinate: number
     yCoordinate: number
+    letter?: string
 }
 
 export const GameBoardTile: React.FC<GameBoardTileProps> = ({
     xCoordinate,
     yCoordinate,
+    letter,
 }) => {
     const coordinates = {
         x: xCoordinate,
@@ -70,7 +72,7 @@ export const GameBoardTile: React.FC<GameBoardTileProps> = ({
                     </div>
                 </>
             ) : (
-                <div></div>
+                <div>{letter}</div>
             )}
         </div>
     )
