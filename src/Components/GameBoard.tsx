@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { alphabet, yCoordinates } from '../Definitions'
 import { CoordinateRow } from './CoordinateRow'
-import { ScrabbleContext } from '../Context/gameReducer'
+import { ScrabbleContext } from '../Context/context'
 
 export const GameBoard: React.FC = () => {
     const { state } = useContext(ScrabbleContext)

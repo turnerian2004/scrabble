@@ -1,24 +1,18 @@
-import { createContext, useReducer } from 'react'
-import { IState, initialState } from './InitialState'
+import { allEnglishWords, WordEntry } from '../assests/words'
+import { letterDropPayloadProps } from '../Components/GameBoardTile'
 import {
-    assignPlayerLetters,
-    distributeLettersAtGameStart,
-} from '../Helpers/GetStartingLetters'
-import { ILetter, ILetters } from '../Letters/Letters'
-import {
-    ComputerSkillLevel,
+    freeDictionaryApiResponse,
     LetterOwner,
     UserActions,
-    freeDictionaryApiResponse,
 } from '../Definitions'
-import { getRecommendedWords } from '../Helpers/GetRecommendedWords'
-import { WordEntry, allEnglishWords } from '../assests/words'
-import { reorganizeLetters } from '../Letters/ReorganizeLetters'
-import { letterDropPayloadProps } from '../Components/GameBoardTile'
+import { assignPlayerLetters } from '../Helpers/GetStartingLetters'
 import {
     identifyLettersPlacedOnBoard,
     removeUsedLetters,
 } from '../Helpers/StartGame'
+import { ILetters } from '../Letters/Letters'
+import { reorganizeLetters } from '../Letters/ReorganizeLetters'
+import { IState } from './InitialState'
 
 type ActionType = {
     type: UserActions
@@ -30,7 +24,7 @@ type ActionType = {
         | freeDictionaryApiResponse
 }
 
-function reducer(state: IState, action: ActionType): IState {
+export function reducer(state: IState, action: ActionType): IState {
     switch (action.type) {
         case UserActions.StartGame: {
             const computerStartingWordApiResponse =
@@ -191,134 +185,4 @@ function reducer(state: IState, action: ActionType): IState {
         default:
             return state
     }
-}
-
-export type { ActionType }
-
-const useScrabbleContext = (initialState: IState) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    console.log('state: ', state)
-
-    const startGame = async () => {
-        const computerStartingWord: freeDictionaryApiResponse =
-            await getRecommendedWords(
-                state.allLetters.computer,
-                state.computerSkillLevel as ComputerSkillLevel
-            )
-
-        const cleanComputerStartingWord = computerStartingWord
-
-        dispatch({
-            type: UserActions.StartGame,
-            payload: cleanComputerStartingWord,
-        })
-    }
-
-    const proceedToOpponentPage = () => {
-        const [availableLetters, personLetters, computerLetters] =
-            distributeLettersAtGameStart(state.allLetters.available)
-        const boardLetters: ILetter[] = []
-        const updatedLetters: ILetters = {
-            available: availableLetters,
-            computer: computerLetters,
-            person: personLetters,
-            board: boardLetters,
-        }
-
-        dispatch({
-            type: UserActions.ProceedToOpponentSelectPage,
-            payload: updatedLetters,
-        })
-    }
-
-    const selectHintHelpLevel = (levelSupportRequested: string) => {
-        dispatch({
-            type: UserActions.LevelSupportRequested,
-            payload: levelSupportRequested,
-        })
-    }
-
-    const selectComputerSkillLevel = (computerSkillLevel: string) => {
-        dispatch({
-            type: UserActions.SelectComputerSkillLevel,
-            payload: computerSkillLevel,
-        })
-    }
-
-    const selectHintType = (hintTypeRequested: string) => {
-        dispatch({
-            type: UserActions.HintTypeRequested,
-            payload: hintTypeRequested,
-        })
-    }
-
-    const gameTimeLimit = (gameTimeLimit: string) => {
-        dispatch({
-            type: UserActions.GameTimeLimit,
-            payload: gameTimeLimit,
-        })
-    }
-
-    const turnTimeLimit = (turnTimeLimit: string) => {
-        dispatch({
-            type: UserActions.TurnTimeLimit,
-            payload: turnTimeLimit,
-        })
-    }
-
-    const moveLetterToBoard = (
-        letterDropInfo: letterDropPayloadProps
-    ) => {
-        dispatch({
-            type: UserActions.MoveLetterToBoard,
-            payload: letterDropInfo,
-        })
-    }
-
-    return {
-        state,
-        proceedToOpponentPage,
-        selectComputerSkillLevel,
-        gameTimeLimit,
-        turnTimeLimit,
-        startGame,
-        moveLetterToBoard,
-        selectHintHelpLevel,
-        selectHintType,
-    }
-}
-
-type UseScrabbleContextType = ReturnType<typeof useScrabbleContext>
-
-const initialContextState: UseScrabbleContextType = {
-    state: initialState,
-    proceedToOpponentPage: () => {},
-    selectComputerSkillLevel: () => {},
-    gameTimeLimit: () => {},
-    turnTimeLimit: () => {},
-    startGame: async () => {},
-    moveLetterToBoard: () => {},
-    selectHintHelpLevel: () => {},
-    selectHintType: () => {},
-}
-
-export const ScrabbleContext = createContext<UseScrabbleContextType>(
-    initialContextState
-)
-
-interface Props {
-    children: React.ReactNode
-    initialState: IState
-}
-
-export const ScrabbleProvider = ({
-    children,
-    initialState,
-}: Props): JSX.Element => {
-    return (
-        <ScrabbleContext.Provider
-            value={useScrabbleContext(initialState)}>
-            {children}
-        </ScrabbleContext.Provider>
-    )
 }

@@ -1,4 +1,4 @@
-import { ScrabbleProvider } from './Context/gameReducer'
+import { ScrabbleProvider } from './Context/context'
 import { initialState } from './Context/InitialState'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { DndProvider } from 'react-dnd'

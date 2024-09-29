@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ScrabbleContext } from '../Context/gameReducer'
+import { ScrabbleContext } from '../Context/context'
 import { GameBoard } from '../Components/GameBoard'
 import { LetterTilesDisplay } from '../Components/LetterTilesDisplay'
 import { UserSelectMenu } from '../Components/UserSelectMenu'

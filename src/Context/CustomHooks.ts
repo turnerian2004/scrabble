@@ -1,5 +1,6 @@
 import { useContext } from 'react'
-import { ScrabbleContext } from './gameReducer'
+// import { ScrabbleContext } from './gameReducer'
+import { ScrabbleContext } from './context'
 import { IState } from './InitialState'
 import { letterDropPayloadProps } from '../Components/GameBoardTile'
 
