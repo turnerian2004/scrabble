@@ -6,11 +6,12 @@ import {
     UserActions,
 } from '../Definitions'
 import { assignPlayerLetters } from '../Helpers/GetStartingLetters'
+import { updateBoard } from '../Helpers/InitializeBoard'
 import {
     identifyLettersPlacedOnBoard,
     removeUsedLetters,
 } from '../Helpers/StartGame'
-import { ILetters } from '../Letters/Letters'
+import { ILetter, ILetters } from '../Letters/Letters'
 import { reorganizeLetters } from '../Letters/ReorganizeLetters'
 import { IState } from './InitialState'
 
@@ -61,18 +62,14 @@ export function reducer(state: IState, action: ActionType): IState {
                 )
 
             const updatedComputerLetters = removeUsedLetters(
-                computerLettersPlacedOnBoard,
-                state.allLetters.computer
+                state.allLetters.computer,
+                computerLettersPlacedOnBoard
             )
 
-            console.log(
-                'computerReplacementLetters: ',
-                computerReplacementLetters
-            )
-            console.log(
-                'updatedComputerLetters: ',
-                updatedComputerLetters
-            )
+            const finalComputerLetters = [
+                ...updatedComputerLetters,
+                ...computerReplacementLetters,
+            ]
 
             // To do:
             // 1. check all letters in updatedLetterBag are not in computerLettersPlacedOnBoard
@@ -94,11 +91,32 @@ export function reducer(state: IState, action: ActionType): IState {
             // newLetters.board = newBoardLetters
             // const newBoard = updateBoard(newBoardLetters)
 
+            const newLetterBag: ILetters = {
+                board: computerLettersPlacedOnBoard,
+                person: state.allLetters.person,
+                computer: finalComputerLetters,
+                available: updatedAvailableLetterBag,
+            }
+
+            const testLetterBag: ILetter[] = []
+            for (let i = 0; i < newLetterBag.board.length; i++) {
+                const letter = newLetterBag.board[i]
+                letter.xCoordinate = i
+                letter.yCoordinate = i
+                testLetterBag.push(letter)
+            }
+
+            const newBoard = updateBoard(testLetterBag)
+
+            console.log('newLetterBag.board: ', newLetterBag.board)
+
             return {
                 ...state,
                 hasGameStarted: true,
                 computerRecommendedWord:
                     computerStartingWordWithPointTotal,
+                allLetters: newLetterBag,
+                board: newBoard,
             }
         }
 

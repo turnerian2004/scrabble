@@ -21,8 +21,4 @@ Play my version [here](https://turnerian2004.github.io/scrabble/)
 
 # Coding Terms
 
-playerLetters
-computerLetters
-personLetters
-
-In the code base, computer refers to the computer opponent, person refers to the human opponent, and player refers to an instance that can be either the computer or the person.
+In the code base, variables that are prefixed with computer refer to the computer opponent, variables that are prefixed with person refer to the human opponent, and variables that are prefixed player refer to an instance that can be either the computer or the person.

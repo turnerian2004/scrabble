@@ -84,10 +84,10 @@ export function identifyLettersPlacedOnBoard(
 }
 
 export function removeUsedLetters(
-    letterBag: ILetter[],
+    playersInitialLetters: ILetter[],
     usedLetters: ILetter[]
 ): ILetter[] {
-    const updatedLetterBag: ILetter[] = letterBag.filter(
+    const updatedLetterBag: ILetter[] = playersInitialLetters.filter(
         letter =>
             !usedLetters.some(
                 usedLetters =>
