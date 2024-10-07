@@ -8,9 +8,8 @@ import { useEffect, useState } from 'react'
 import { GameBoard } from '../Components/GameBoard'
 
 export const WelcomePage = () => {
-    const [showButton, setShowButton] = useState(false)
     const [showArrowDownwardIcon, setShowArrowDownwardIcon] =
-        useState(false)
+        useState(true)
 
     const { proceedToOpponentPage } = useProceedToOpponentPage()
     const navigate = useNavigate()
@@ -22,15 +21,8 @@ export const WelcomePage = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setShowArrowDownwardIcon(true)
-        }, 2000)
-        return () => clearTimeout(timer)
-    }, [])
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowButton(true)
-        }, 2500)
+            setShowArrowDownwardIcon(false)
+        }, 4000)
         return () => clearTimeout(timer)
     }, [])
 
@@ -41,17 +33,17 @@ export const WelcomePage = () => {
             </div>
             <div className="flex flex-col items-center justify-center">
                 <IntroCard message={welcomeMessage} />
-                {showArrowDownwardIcon && (
-                    <div className="animate-bounce">
-                        <ArrowDownwardIcon />
-                    </div>
-                )}
-                {showButton && (
-                    <UserButton
-                        onClick={handleWelcome}
-                        title={'Next Page'}
-                    />
-                )}
+                <div className="h-[30px]">
+                    {showArrowDownwardIcon && (
+                        <div className="animate-bounce">
+                            <ArrowDownwardIcon />
+                        </div>
+                    )}
+                </div>
+                <UserButton
+                    onClick={handleWelcome}
+                    title={'Next Page'}
+                />
             </div>
         </div>
     )
