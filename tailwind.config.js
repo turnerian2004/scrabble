@@ -24,8 +24,8 @@ export default {
                 },
             },
             gridTemplateColumns: {
-                16: 'repeat(16, minmax(0, 1.5rem))',
-                15: 'repeat(15, minmax(0, 1.5rem))',
+                16: 'repeat(16, minmax(0, 1fr))',
+                15: 'repeat(15, minmax(0, 1fr))',
                 footer: '200px minmax(900px, 1fr) 100px',
             },
             gridTemplateRows: {

@@ -54,26 +54,26 @@ export const GameBoardTile: React.FC<GameBoardTileProps> = ({
         <div
             ref={dropRef}
             className={classNames(
-                'relative flex h-6 w-6 items-center justify-center rounded-md',
-                { 'border border-black bg-zinc-300': !droppedItem },
-                { 'bg-[#facd9f]': !!droppedItem },
+                'rounded-m relative flex h-8 w-8 items-center justify-center bg-[#facd9f]',
                 {
-                    'border-2 border-black outline outline-black':
-                        isOver,
+                    '': isOver,
                 }
-            )}>
-            {droppedItem ? (
-                <>
-                    <div className="text-base font-bold capitalize">
-                        {droppedItem.character}
-                    </div>
-                    <div className="absolute bottom-0 right-0 text-[6px]">
-                        {droppedItem.pointValue}
-                    </div>
-                </>
-            ) : (
-                <div>{letter}</div>
             )}
+            data-testid="gameboard-tile">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white">
+                {droppedItem ? (
+                    <div>
+                        <div className="pl-[2px] text-base font-bold capitalize">
+                            {droppedItem.character}
+                            <sub className="text-[6px]">
+                                {droppedItem.pointValue}
+                            </sub>
+                        </div>
+                    </div>
+                ) : (
+                    <div>{letter}</div>
+                )}
+            </div>
         </div>
     )
 }

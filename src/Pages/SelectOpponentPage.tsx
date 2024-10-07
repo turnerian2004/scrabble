@@ -38,11 +38,11 @@ export const VisitorPage = () => {
 
     return (
         <>
-            <div className="grid h-screen grid-cols-2 justify-center gap-4">
-                <div className="flex items-center justify-center">
+            <div className="grid h-screen grid-cols-2 justify-center gap-16">
+                <div className="flex items-center justify-end">
                     <GameBoard />
                 </div>
-                <div className="flex flex-col items-center justify-center">
+                <div className="items-left flex flex-col justify-center gap-y-4">
                     <UserSelectMenu
                         title="Computer Skill Level"
                         options={computerSkillLevel}

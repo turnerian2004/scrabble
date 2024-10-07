@@ -27,23 +27,25 @@ export const WelcomePage = () => {
     }, [])
 
     return (
-        <div className="grid h-screen grid-cols-2 justify-center gap-4">
-            <div className="flex items-center justify-center">
+        <div className="grid h-screen grid-cols-2 justify-center gap-16">
+            <div className="flex items-center justify-end">
                 <GameBoard></GameBoard>
             </div>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col justify-center">
                 <IntroCard message={welcomeMessage} />
-                <div className="h-[30px]">
+                <div className="ml-[190px] h-[30px]">
                     {showArrowDownwardIcon && (
                         <div className="animate-bounce">
                             <ArrowDownwardIcon />
                         </div>
                     )}
                 </div>
-                <UserButton
-                    onClick={handleWelcome}
-                    title={'Next Page'}
-                />
+                <div className="ml-[136px]">
+                    <UserButton
+                        onClick={handleWelcome}
+                        title={'Next Page'}
+                    />
+                </div>
             </div>
         </div>
     )

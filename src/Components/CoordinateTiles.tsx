@@ -1,11 +1,11 @@
 import { CoordinateTile } from './CoordinateTile'
 
-export interface CoordinateRowProps {
+export interface CoordinatesProps {
     coordinates: string[]
     classes?: string
 }
 
-export const CoordinateRow: React.FC<CoordinateRowProps> = ({
+export const CoordinateTiles: React.FC<CoordinatesProps> = ({
     coordinates,
     classes,
 }) => {

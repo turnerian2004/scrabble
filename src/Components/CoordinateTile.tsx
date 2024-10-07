@@ -10,9 +10,12 @@ export const CoordinateTile: React.FC<CoordinateTileProps> = ({
     return (
         <div
             className={
-                'flex h-6 w-6 items-center justify-center rounded-md border-2 border-black text-center text-[10px]'
-            }>
-            {character}
+                'flex h-8 w-8 items-center justify-center bg-[#facd9f] text-center'
+            }
+            data-testid="coordinate-tile">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-lg font-bold uppercase">
+                {character}
+            </div>
         </div>
     )
 }

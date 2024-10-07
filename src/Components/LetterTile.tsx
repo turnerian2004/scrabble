@@ -29,10 +29,10 @@ export const LetterTile: React.FC<LetterTileProps> = ({
                 'grid h-10 w-10 cursor-pointer grid-rows-5 items-center justify-center rounded-md border-2 border-[#1977d3]',
                 { hidden: isDragging }
             )}>
-            <div className="row-span-3 text-lg font-bold capitalize">
+            <div className="row-span-3 w-full text-center text-lg font-bold capitalize">
                 {character}
             </div>
-            <div className="row-span-2 text-xs font-light">
+            <div className="row-span-2 w-full text-center text-xs font-light">
                 {pointValue}
             </div>
         </div>

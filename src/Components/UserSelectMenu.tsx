@@ -24,7 +24,7 @@ export const UserSelectMenu: React.FC<UserSelectMenuProps> = ({
 
     return (
         <div>
-            <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <FormControl sx={{ minWidth: 200 }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
                     {title}
                 </InputLabel>
@@ -34,8 +34,7 @@ export const UserSelectMenu: React.FC<UserSelectMenuProps> = ({
                     value={userSelection}
                     onChange={handleChange}
                     autoWidth
-                    label={title}
-                >
+                    label={title}>
                     {options.map((option, i) => (
                         <MenuItem value={option} key={i}>
                             {option}

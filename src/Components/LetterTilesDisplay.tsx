@@ -9,7 +9,9 @@ export const LetterTilesDisplay: React.FC<
     LetterTilesDisplayProps
 > = ({ letterTiles }) => {
     return (
-        <div className="flex h-12 w-80 cursor-pointer items-center justify-around rounded-md border-2 border-[#1977d3]">
+        <div
+            className="flex h-12 w-80 cursor-pointer items-center justify-around rounded-md border-2 border-[#1977d3]"
+            data-testid="letter-tiles-display">
             {letterTiles.map((letterTile, index) => (
                 <LetterTile
                     key={index}

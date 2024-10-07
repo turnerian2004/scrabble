@@ -17,13 +17,15 @@ export const GamePage = () => {
     const { selectHintType } = useSelectHintType()
 
     return (
-        <div className="grid h-screen grid-cols-2 justify-center gap-4">
-            <div>
-                <GameBoard />
-                <LetterTilesDisplay letterTiles={personLetters} />
+        <div className="grid h-screen grid-cols-2 gap-16">
+            <div className="my-auto grid w-full grid-cols-1 justify-items-end">
+                <div className="flex flex-col items-center gap-4">
+                    <GameBoard />
+                    <LetterTilesDisplay letterTiles={personLetters} />
+                </div>
             </div>
-            <div className="grid w-full grid-rows-3">
-                <div className="flex w-full justify-around">
+            <div className="my-auto grid w-full grid-rows-3 justify-items-start gap-4">
+                <div className="flex h-full w-full items-center justify-around">
                     <UserSelectMenu
                         title="Level of Support"
                         options={hintHelpLevel}
@@ -36,7 +38,7 @@ export const GamePage = () => {
                     />
                 </div>
                 <div></div>
-                <div className="flex w-full justify-around">
+                <div className="flex h-full w-full items-center justify-around">
                     <ScoreDisplay playerScore={state.personScore} />
                     <ScoreDisplay playerScore={state.computerScore} />
                 </div>
