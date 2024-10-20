@@ -1,11 +1,12 @@
 import { LetterOwner } from '../Definitions'
 import { ILetter, ILetters } from './Letters'
 
+// to do: write tests for updateCorrectlySortedLetters
 export function updateCorrectlySortedLetters(
     correctlySortedLetters: ILetters,
     prevSortedLetter: ILetter[]
 ) {
-    prevSortedLetter.forEach((letter) => {
+    prevSortedLetter.forEach(letter => {
         switch (letter.location) {
             case LetterOwner.Available:
                 correctlySortedLetters.available.push(letter)

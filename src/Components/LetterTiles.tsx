@@ -5,9 +5,9 @@ export interface LetterTilesDisplayProps {
     letterTiles: LetterTileProps[]
 }
 
-export const LetterTilesDisplay: React.FC<
-    LetterTilesDisplayProps
-> = ({ letterTiles }) => {
+export const LetterTiles: React.FC<LetterTilesDisplayProps> = ({
+    letterTiles,
+}) => {
     return (
         <div
             className="flex h-12 w-80 cursor-pointer items-center justify-around rounded-md border-2 border-[#1977d3]"

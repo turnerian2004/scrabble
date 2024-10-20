@@ -9,7 +9,7 @@ export const GameBoard: React.FC = () => {
     const board = state.board
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col border-2 border-black">
             <CoordinateTiles
                 coordinates={alphabet}
                 classes="grid grid-cols-16"

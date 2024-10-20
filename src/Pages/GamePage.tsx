@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ScrabbleContext } from '../Context/context'
 import { GameBoard } from '../Components/GameBoard'
-import { LetterTilesDisplay } from '../Components/LetterTilesDisplay'
+import { LetterTiles } from '../Components/LetterTiles'
 import { UserSelectMenu } from '../Components/UserSelectMenu'
 import { hintHelpLevel, wordHintType } from '../Definitions'
 import {
@@ -21,7 +21,7 @@ export const GamePage = () => {
             <div className="my-auto grid w-full grid-cols-1 justify-items-end">
                 <div className="flex flex-col items-center gap-4">
                     <GameBoard />
-                    <LetterTilesDisplay letterTiles={personLetters} />
+                    <LetterTiles letterTiles={personLetters} />
                 </div>
             </div>
             <div className="my-auto grid w-full grid-rows-3 justify-items-start gap-4">
